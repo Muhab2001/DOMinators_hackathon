@@ -22,7 +22,7 @@ import axios from 'axios'
 
 const ListView = dynamic(() => import('../components/list'), {
   ssr: false,
-})
+})  
 const fetcher = (input: { url: string; randomShi }) => {
   console.log(input.randomShi)
 
