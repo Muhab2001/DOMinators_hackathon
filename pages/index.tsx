@@ -3,26 +3,47 @@ import Image from 'next/image'
 import { Inter } from '@next/font/google'
 import styles from '@/styles/Home.module.css'
 import { useForm, zodResolver } from '@mantine/form'
-import { NumberInput, TextInput, Button, ThemeIcon, List } from '@mantine/core'
-import { z } from 'zod'
-import { CircleCheck, CircleDashed } from 'tabler-icons-react'
+import {
+  NumberInput,
+  TextInput,
+  Button,
+  ThemeIcon,
+  List,
+  Text,
+} from '@mantine/core'
+import { RecordType, z } from 'zod'
+import { AlertTriangle, CircleCheck, CircleDashed } from 'tabler-icons-react'
 import { Todo, useTodoStore } from '@/stores/bears'
 // import ListView from '@/components/list'
 import dynamic from 'next/dynamic'
-
+import useSWRImmutable from 'swr'
+import useSWRMutation from 'swr/mutation'
+import axios from 'axios'
 
 const ListView = dynamic(() => import('../components/list'), {
   ssr: false,
 })
+const fetcher = (input: { url: string; randomShi }) => {
+  console.log(input.randomShi)
 
+  return axios.get(input.url).then((res) => res.data)
+}
+
+const postFetcher = (url, {args}: Readonly<Record<string, string>>) => {
+  return axios.post(url, args).then((res) => res.data)
+}
 
 const schema = z.object({
-  name: z.string().min(2, { message: 'Name should have at least 2 letters' }),
+  name: z
+    .string()
+    .min(2, { message: 'Name should have at least 2 letters' })
+    .max(10, { message: 'Name should not exceed 10 letters' }),
   email: z.string().email({ message: 'Invalid email' }),
   age: z
     .number()
     .min(18, { message: 'You must be at least 18 to create an account' }),
 })
+
 
 export default function Home() {
   const form = useForm({
@@ -33,12 +54,19 @@ export default function Home() {
       age: 18,
     },
   })
+  // fetch random quote using SWR
+  const { data, isLoading, error, mutate } = useSWRImmutable(
+    { url: 'https://api.quotable.io/random', randomShi: 'randomShi' },
+    fetcher
+  )
+
+  const {trigger, data: postData} = useSWRMutation('https://jsonplaceholder.typicode.com/posts', postFetcher)
 
   const todos = useTodoStore((state) => state.todos)
   const toggleTodo = useTodoStore((state) => state.toggleTodo)
   const list = Object.values(todos).map((todo: Todo) => (
     <List.Item
-    key = {todo.id}
+      key={todo.id}
       icon={
         todo.done ? (
           <ThemeIcon color="teal" size={24} radius="xl">
@@ -57,8 +85,13 @@ export default function Home() {
   ))
 
   return (
-    <div suppressHydrationWarning className="flex justify-center">
-      <form className="w-96" onSubmit={form.onSubmit(console.log)}>
+    <div
+      suppressHydrationWarning
+      className="flex items-center flex-col max-w-7xl"
+    >
+      <form className="w-96" onSubmit={form.onSubmit((values, _event) => {
+        console.log(values)
+      })}>
         <TextInput
           label="Name"
           placeholder="Name"
@@ -82,9 +115,38 @@ export default function Home() {
           Submit
         </Button>
       </form>
-    
-       <ListView></ListView>
-      
+
+      <ListView></ListView>
+      {isLoading ? (
+        <Text>Loading...</Text>
+      ) : (
+        <Text className="pt-4">We have Fetched: {data.content}</Text>
+      )}
+      <Button
+        leftIcon={<AlertTriangle size={16} />}
+        variant="light"
+        onClick={() => mutate()}
+        type="submit"
+        mt="lg"
+      >
+        Force revalidation
+      </Button>
+      <Button
+        leftIcon={<AlertTriangle size={16} />}
+        variant="light"
+        onClick={() => trigger(
+          {
+            title: 'foo',
+            body: 'bar',
+            userId: 1,
+          }
+        )}
+        type="submit"
+        mt="lg"
+      >
+       POST request
+      </Button>
+      {postData && <Text className="pt-4">We have Fetched: {postData.id}</Text>}
     </div>
   )
 }
