@@ -19,17 +19,15 @@ import dynamic from 'next/dynamic'
 import useSWRImmutable from 'swr'
 import useSWRMutation from 'swr/mutation'
 import axios from 'axios'
+import { ActivityCard, ActivityStatus } from '@/components/ActivityCard'
 
-const ListView = dynamic(() => import('../components/list'), {
-  ssr: false,
-})  
 const fetcher = (input: { url: string; randomShi }) => {
   console.log(input.randomShi)
 
   return axios.get(input.url).then((res) => res.data)
 }
 
-const postFetcher = (url, {args}: Readonly<Record<string, string>>) => {
+const postFetcher = (url, { args }: Readonly<Record<string, string>>) => {
   return axios.post(url, args).then((res) => res.data)
 }
 
@@ -43,7 +41,6 @@ const schema = z.object({
     .number()
     .min(18, { message: 'You must be at least 18 to create an account' }),
 })
-
 
 export default function Home() {
   const form = useForm({
@@ -60,7 +57,10 @@ export default function Home() {
     fetcher
   )
 
-  const {trigger, data: postData} = useSWRMutation('https://jsonplaceholder.typicode.com/posts', postFetcher)
+  const { trigger, data: postData } = useSWRMutation(
+    'https://jsonplaceholder.typicode.com/posts',
+    postFetcher
+  )
 
   const todos = useTodoStore((state) => state.todos)
   const toggleTodo = useTodoStore((state) => state.toggleTodo)
@@ -87,11 +87,27 @@ export default function Home() {
   return (
     <div
       suppressHydrationWarning
-      className="flex items-center flex-col max-w-7xl"
+      className="flex items-center flex-col max-w-7xl pt-8"
     >
-      <form className="w-96" onSubmit={form.onSubmit((values, _event) => {
-        console.log(values)
-      })}>
+      <ActivityCard
+        attendnance={10}
+        category="Hackathon"
+        date="2/17/2023"
+        description="This is a nice description of the activity"
+        image="https://images.unsplash.com/photo-1676200788931-187944f74e0e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
+        location="Dhahran, KFUPM"
+        locationURL="https://unsplash.com/photos/xNqnwGVQTqs"
+        participantsLimit={50}
+        registeredParticipants={30}
+        status={ActivityStatus.onGoing}
+        title="Hacha Hackathon"
+      />
+      <form
+        className="w-96"
+        onSubmit={form.onSubmit((values, _event) => {
+          console.log(values)
+        })}
+      >
         <TextInput
           label="Name"
           placeholder="Name"
@@ -116,7 +132,6 @@ export default function Home() {
         </Button>
       </form>
 
-      <ListView></ListView>
       {isLoading ? (
         <Text>Loading...</Text>
       ) : (
@@ -134,17 +149,17 @@ export default function Home() {
       <Button
         leftIcon={<AlertTriangle size={16} />}
         variant="light"
-        onClick={() => trigger(
-          {
+        onClick={() =>
+          trigger({
             title: 'foo',
             body: 'bar',
             userId: 1,
-          }
-        )}
+          })
+        }
         type="submit"
         mt="lg"
       >
-       POST request
+        POST request
       </Button>
       {postData && <Text className="pt-4">We have Fetched: {postData.id}</Text>}
     </div>
