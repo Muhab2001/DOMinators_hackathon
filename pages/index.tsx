@@ -20,6 +20,8 @@ import useSWRImmutable from 'swr'
 import useSWRMutation from 'swr/mutation'
 import axios from 'axios'
 import { ActivityCard, ActivityStatus } from '@/components/ActivityCard'
+import MembersTable from '@/components/MembersTable'
+import { UserRole } from '@/stores/profile'
 
 const fetcher = (input: { url: string; randomShi }) => {
   console.log(input.randomShi)
@@ -87,7 +89,7 @@ export default function Home() {
   return (
     <div
       suppressHydrationWarning
-      className="flex items-center flex-col max-w-7xl pt-8"
+      className="flex items-center flex-col"
     >
       <ActivityCard
         attendnance={10}
@@ -102,7 +104,7 @@ export default function Home() {
         status={ActivityStatus.onGoing}
         title="Hacha Hackathon"
       />
-      <form
+      {/* <form
         className="w-96"
         onSubmit={form.onSubmit((values, _event) => {
           console.log(values)
@@ -130,13 +132,44 @@ export default function Home() {
         <Button type="submit" mt="sm">
           Submit
         </Button>
-      </form>
+      </form> */}
 
-      {isLoading ? (
-        <Text>Loading...</Text>
-      ) : (
-        <Text className="pt-4">We have Fetched: {data.content}</Text>
-      )}
+      <MembersTable
+        members={[
+          {
+            id: 4,
+            name: 'Ahmed',
+            email: 'ahmed@gmail.com',
+            role: UserRole.CLUB_PRESIDENT,
+            avatar:
+              'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8YXZhdGFyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60',
+          },
+          {
+            id: 44,
+            name: 'Ahmed',
+            email: 'ahmed@gmail.com',
+            role: UserRole.CLUB_PRESIDENT,
+            avatar:
+              'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8YXZhdGFyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60',
+          },
+          {
+            id: 404,
+            name: 'Ahmed',
+            email: 'ahmed@gmail.com',
+            role: UserRole.CLUB_PRESIDENT,
+            avatar:
+              'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8YXZhdGFyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60',
+          },
+          {
+            id: 4432,
+            name: 'Ahmed',
+            email: 'ahmed@gmail.com',
+            role: UserRole.CLUB_PRESIDENT,
+            avatar:
+              'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8YXZhdGFyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60',
+          },
+        ]}
+      />
       <Button
         leftIcon={<AlertTriangle size={16} />}
         variant="light"
