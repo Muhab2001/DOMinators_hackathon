@@ -91,7 +91,7 @@ export function LoginModal({
             placeholder="Your password"
             value={form.values.password}
             onChange={(event) =>
-              form.setFieldValue('password', event.currentTarget.value)
+              form.setFieldValue('confirmPassword', event.currentTarget.value)
             }
             error={
               form.errors.password &&

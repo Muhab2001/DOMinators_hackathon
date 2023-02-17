@@ -14,4 +14,6 @@ class Activity {
   async getActivityDetails(acitivity_id: number) : Promise<IActivity> {}
 
     async registerForActivity(activity_id: number) : Promise<void> {}
+
+  
 }

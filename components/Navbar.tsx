@@ -23,6 +23,7 @@ const useStyles = createStyles((theme, _params, getRef) => {
       }).background,
       position: 'fixed',
       left: 0,
+      zIndex: 1,
     },
 
     version: {
@@ -60,6 +61,7 @@ const useStyles = createStyles((theme, _params, getRef) => {
       display: 'flex',
       alignItems: 'center',
       textDecoration: 'none',
+      marginBottom: theme.spacing.sm,
       fontSize: theme.fontSizes.sm,
       color: theme.white,
       padding: `${theme.spacing.xs}px ${theme.spacing.sm}px`,

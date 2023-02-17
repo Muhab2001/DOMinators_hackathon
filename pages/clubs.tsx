@@ -14,15 +14,15 @@ function MyTimeline() {
 function ClubsList() {
   return (
     <>
-      <div className="w-full h-full">
+      <div className="w-full h-full mt-6">
         <Grid className="pl-36 h-full w-full">
-          <Grid.Col span={10}>
+          <Grid.Col className="mb-6" span={10}>
             <SearchField />
           </Grid.Col>
 
           <Grid.Col span={10}>
-            <Grid>
-              <Grid.Col className="min-h-44" span={4}>
+            <Grid className="gap-y-7" justify="space-between">
+              <Grid.Col span={4}>
                 <ClubCard
                   className="h-1/3"
                   name="Computer Club"
@@ -123,7 +123,6 @@ function ClubsList() {
               </Grid.Col>
             </Grid>
           </Grid.Col>
-
           <Grid.Col span={2}>
             <MyTimeline />
           </Grid.Col>
