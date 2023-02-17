@@ -1,9 +1,11 @@
-import { Grid, createStyles } from '@mantine/core'
+import { Grid, createStyles, Group, Tooltip, ActionIcon } from '@mantine/core'
 
 import {
   BrandTwitter,
   BrandFacebook,
-  BrandLinkedin
+  BrandLinkedin,
+  Trash,
+  Pencil
 } from 'tabler-icons-react'
 interface MembersTableProps {
   members: UserProfile[]
@@ -57,7 +59,7 @@ function MembersTable({ members }: MembersTableProps) {
     <Grid ml={300} mr={300} columns={4}>
       {members.map((member) => (
         member.role == 'club_president' ? <>
-        <Grid.Col span={4}>
+        <Grid.Col span={4} >
           <div className='our-team' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
 
             <img
@@ -94,6 +96,18 @@ function MembersTable({ members }: MembersTableProps) {
               <BrandLinkedin />
               <BrandFacebook />
             </ul>
+            <Group spacing={3}>
+            <Tooltip label="Kick Member" withArrow>
+              <ActionIcon variant="light" color="red">
+                <Trash size={16}></Trash>
+              </ActionIcon>
+            </Tooltip>
+            <Tooltip label="Edit Member Credentials" withArrow>
+              <ActionIcon variant="light" color="blue">
+                <Pencil size={16}></Pencil>
+              </ActionIcon>
+            </Tooltip>
+          </Group>
           </div>
 
         </Grid.Col></>
