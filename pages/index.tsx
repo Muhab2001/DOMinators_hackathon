@@ -57,52 +57,6 @@ const schema = z.object({
     .min(18, { message: 'You must be at least 18 to create an account' }),
 })
 
-function Popup({ setIsOpen }) {
-  const { Canvas } = useQRCode()
-
-  return (
-    <div className="fixed z-50 inset-0 overflow-y-auto">
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="fixed inset-0 bg-gray-500 bg-opacity-75 backdrop-blur-md"></div>
-
-        <div className="relative bg-white rounded-lg p-20 z-20">
-          <svg
-            className="absolute right-6 top-5 cursor-pointer"
-            xmlns="https://www.w3.org/2000/svg"
-            width="41"
-            height="41"
-            fill="none"
-            onClick={() => setIsOpen(false)}
-          >
-            <path
-              fill="#9B9B9B"
-              d="M33.392 30.67a1.921 1.921 0 0 1-1.36 3.281c-.51 0-1-.2-1.362-.558L20.5 23.223l-10.17 10.17a1.938 1.938 0 0 1-2.723 0 1.923 1.923 0 0 1 0-2.723l10.17-10.17-10.17-10.17a1.925 1.925 0 0 1 2.723-2.723l10.17 10.17 10.17-10.17a1.925 1.925 0 1 1 2.722 2.723L23.222 20.5l10.17 10.17Z"
-            />
-          </svg>
-          <h1 className="text-xl font-bold text-center mb-4">
-            Scan this QR code to attend the event
-          </h1>
-          <div className="flex flex-row items-center justify-center m-auto w-full">
-            <Canvas
-              text={'https://github.com/bunlong/next-qrcode'}
-              options={{
-                level: 'M',
-                margin: 3,
-                scale: 4,
-                width: 200,
-                // color: {
-                //   dark: '#010599FF',
-                //   light: '#FFBF60FF',
-                // },
-              }}
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-  )
-}
-
 export default function Home() {
   const [isOpen, setIsOpen] = useState(true)
 
@@ -151,7 +105,6 @@ export default function Home() {
   return (
     <>
       <div className="flex items-center flex-col">
-        {isOpen && <Popup setIsOpen={setIsOpen} />}
         {/* <ClubCard
         memberCount={70}
         activitiesCount={5}

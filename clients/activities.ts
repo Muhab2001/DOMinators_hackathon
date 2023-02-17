@@ -1,6 +1,7 @@
 import { ActivityStatus } from '@/components/ActivityCard'
 
 interface IActivity {
+  id: number
   title: string
   date: string
   description: string
@@ -18,6 +19,7 @@ export class ActivityClient {
   static async getClubActivities({ clubId, path }): Promise<IActivity[]> {
     return [
       {
+        id: 1,
         title: 'Club Activity 1',
         date: '2020-01-01',
         description:
@@ -32,6 +34,7 @@ export class ActivityClient {
         locationURL: 'https://www.google.com/maps',
       },
       {
+        id: 2,
         title: 'Club Activity 1',
         date: '2020-01-01',
         description: 'Club Activity 1 Description',
@@ -51,6 +54,7 @@ export class ActivityClient {
     acitivity_id: number,
   }): Promise<IActivity> {
     return {
+      id: 4,
       title: 'Club Activity 1',
       date: '2020-01-01',
       description: 'Club Activity 1 Description',
@@ -69,4 +73,16 @@ export class ActivityClient {
     activity_id: number,
     email: string
   ): Promise<void> {}
+
+  static async generateActivityQR(club_codename: string, activity_id: string) {
+    return 'dgkmldfngfdxgudrhergferg'
+  }
+
+  static async checkActivityValidity(email: string, activity_id: number) {
+    return { valid: true, activityName: 'Example Activity Name' }
+  }
+
+  static async recordAttendance(activity_id: string, user_id: string){
+    // we do some shit
+  }
 }

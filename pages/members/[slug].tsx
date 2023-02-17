@@ -1,7 +1,9 @@
 function MembersPage() {
-    return ( <>
-    
-    </>);
+  return (
+    <>
+      
+    </>
+  )
 }
 
-export default MembersPage;
+export default MembersPage

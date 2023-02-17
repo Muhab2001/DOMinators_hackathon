@@ -7,11 +7,13 @@ import {
   Avatar,
   Text,
   Divider,
+  Button,
   Box,
 } from '@mantine/core'
 import { Activity, Icon, Moneybag, Stack, Users } from 'tabler-icons-react'
-import Link from 'next/link'
+
 import { useClub } from '@/stores/club'
+import { useRouter } from 'next/router'
 
 const useStyles = createStyles((theme, _params, getRef) => {
   const icon = getRef('icon')
@@ -103,6 +105,7 @@ const useStyles = createStyles((theme, _params, getRef) => {
 
 export function AppNavbar() {
   const { classes, cx } = useStyles()
+  const router = useRouter()
 
   const { name, logo, activePage, switchPage, codename } = useClub((state) => ({
     name: state.name,
@@ -113,29 +116,29 @@ export function AppNavbar() {
   }))
   const data = [
     {
-      link: 'club_activities/' + codename,
+      link: '/club_activities/' + codename,
       label: 'Activities',
       icon: Activity,
     },
     // { link: '', label: 'Finance', icon: Moneybag },
-    { link: 'members/' + codename, label: 'Members', icon: Users },
+    { link: '/members/' + codename, label: 'Members', icon: Users },
   ]
 
   const links = data.map((item) => (
-    <Link
+    <Button
       className={cx(classes.link, {
         [classes.linkActive]: item.label === activePage,
       })}
-      href={item.link}
       key={item.label}
       onClick={(event) => {
         event.preventDefault()
         switchPage(item.label)
+        router.push(item.link)
       }}
     >
       <item.icon size={16} className={classes.linkIcon} />
       <span>{item.label}</span>
-    </Link>
+    </Button>
   ))
 
   return (

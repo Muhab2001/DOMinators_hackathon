@@ -1,4 +1,4 @@
-import { Group as Stack, Modal, Text, TextInput } from '@mantine/core'
+import { Group as Stack, Modal, Text, TextInput, Button } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { z } from 'zod'
 
@@ -41,9 +41,17 @@ function EnrollementModal({
 
   //   TODO: insert the link contents, and URLs
   const fields = form.values.links.map((_, index) => (
-    <Stack>
-      <TextInput></TextInput>
-      <TextInput></TextInput>
+    <Stack mb={3}>
+      <TextInput label="Purpose" placeholder="Link Purpose"></TextInput>
+      <TextInput label="URL" placeholder="Enter the URL"></TextInput>
+      <Button
+        onClick={() => {
+          form.removeListItem('links', index)
+        }}
+        color="red"
+      >
+        Delete Link
+      </Button>
     </Stack>
   ))
 
@@ -57,7 +65,21 @@ function EnrollementModal({
           </Text>
         }
         opened={visible}
-      ></Modal>
+      >
+        <form onSubmit={form.onSubmit((values) => {})}>
+          <TextInput label="Name" placeholder="Name"></TextInput>
+          <TextInput label="Email Address"></TextInput>
+          {fields}
+          <Button
+            onClick={() =>
+              form.insertListItem('links', { link: '', label: '' })
+            }
+            style={{ flex: 1 }}
+          >
+            Add a new link
+          </Button>
+        </form>
+      </Modal>
     </>
   )
 }
