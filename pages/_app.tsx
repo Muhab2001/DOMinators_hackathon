@@ -12,6 +12,7 @@ import {
 import { Settings } from 'tabler-icons-react'
 import { useTodoStore } from '@/stores/bears'
 import AppHeader from '@/components/AppHeader'
+import '../styles/bruh.css' 
 
 const useStyles = createStyles((theme) => ({
   cuteText: {
