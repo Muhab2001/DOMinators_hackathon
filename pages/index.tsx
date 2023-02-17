@@ -12,7 +12,12 @@ import {
   Text,
 } from '@mantine/core'
 import { RecordType, z } from 'zod'
-import { AlertTriangle, CircleCheck, CircleDashed } from 'tabler-icons-react'
+import {
+  AlertTriangle,
+  CircleCheck,
+  CircleDashed,
+  NewSection,
+} from 'tabler-icons-react'
 import { Todo, useTodoStore } from '@/stores/bears'
 // import ListView from '@/components/list'
 import dynamic from 'next/dynamic'
@@ -23,6 +28,8 @@ import { ActivityCard, ActivityStatus } from '@/components/ActivityCard'
 import MembersTable from '@/components/MembersTable'
 import { UserRole } from '@/stores/profile'
 import ClubCard from '@/components/ClubCard'
+import { useDisclosure } from '@mantine/hooks'
+import { LoginModal } from '@/components/LoginModal'
 
 const fetcher = (input: { url: string; randomShi }) => {
   console.log(input.randomShi)
@@ -64,6 +71,8 @@ export default function Home() {
     'https://jsonplaceholder.typicode.com/posts',
     postFetcher
   )
+
+  const [opened, handlers] = useDisclosure(false)
 
   const todos = useTodoStore((state) => state.todos)
   const toggleTodo = useTodoStore((state) => state.toggleTodo)
@@ -177,6 +186,15 @@ export default function Home() {
         ]}
       /> */}
       <Button
+        leftIcon={<NewSection size={16} />}
+        variant="light"
+        onClick={() => handlers.open()}
+        type="submit"
+        mt="lg"
+      >
+        Open login
+      </Button>
+      <Button
         leftIcon={<AlertTriangle size={16} />}
         variant="light"
         onClick={() => mutate()}
@@ -185,22 +203,7 @@ export default function Home() {
       >
         Force revalidation
       </Button>
-      <Button
-        leftIcon={<AlertTriangle size={16} />}
-        variant="light"
-        onClick={() =>
-          trigger({
-            title: 'foo',
-            body: 'bar',
-            userId: 1,
-          })
-        }
-        type="submit"
-        mt="lg"
-      >
-        POST request
-      </Button>
-      {postData && <Text className="pt-4">We have Fetched: {postData.id}</Text>}
+      <LoginModal visible={opened} onClose={handlers.close} />
     </div>
   )
 }
