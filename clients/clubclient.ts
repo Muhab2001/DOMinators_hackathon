@@ -2,6 +2,7 @@ interface ShortenedClubProfile {
   logoImg: string
   shortDescription: string
   clubName: string
+  codename: string
 }
 
 interface ClubProfile {
@@ -17,7 +18,5 @@ interface ClubProfile {
 class Club {
   async getClubProfile(clubId: string): Promise<ClubProfile> {}
 
-  async getAllClubs(clubId: string): Promise<ShortenedClubProfile> {
-    
-  }
+  async getAllClubs(clubId: string): Promise<ShortenedClubProfile> {}
 }

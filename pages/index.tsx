@@ -30,6 +30,7 @@ import { UserRole } from '@/stores/profile'
 import ClubCard from '@/components/ClubCard'
 import { useDisclosure } from '@mantine/hooks'
 import { LoginModal } from '@/components/LoginModal'
+import { AppNavbar } from '@/components/Navbar'
 
 const fetcher = (input: { url: string; randomShi }) => {
   console.log(input.randomShi)
@@ -98,14 +99,15 @@ export default function Home() {
 
   return (
     <div suppressHydrationWarning className="flex items-center flex-col">
-      <ClubCard
+      {/* <ClubCard
         memberCount={70}
-        recentActivities={5}
+        activitiesCount={5}
         codename="CC"
         name="Computer Club"
         description="The official computer club page in KFUPM"
         logo="https://images.unsplash.com/photo-1599305445671-ac291c95aaa9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bG9nb3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"
-      />
+      /> */}
+      <AppNavbar />
       {/* <ActivityCard
         attendnance={10}
         category="Hackathon"

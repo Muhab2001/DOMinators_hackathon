@@ -26,16 +26,17 @@ interface ClubCardProps {
   logo: string
   memberCount: number
   description: string
-  recentActivities: number
+  activitiesCount: number
+  className?: string
 }
 
-function ClubCard(props: ClubCardProps) {
+function ClubCard(props, { className }: ClubCardProps) {
   const classes = useStyles()
 
   return (
     <>
       <Link href={'club_activities/' + props.codename}>
-        <Card withBorder radius="md" p="sm">
+        <Card withBorder radius="md" p="sm" classNames={className}>
           {/* section for the logo, title, and short description */}
           <Card.Section p={'md'} withBorder>
             <Group align="center" spacing={8}>
@@ -66,9 +67,7 @@ function ClubCard(props: ClubCardProps) {
                   <Activity size={16} />
                 </ActionIcon>
                 <Text mx={0} size={'sm'}>
-                  <span className="font-semibold">
-                    {props.recentActivities}
-                  </span>{' '}
+                  <span className="font-semibold">{props.activitiesCount}</span>{' '}
                   Recent Activites
                 </Text>
               </Group>

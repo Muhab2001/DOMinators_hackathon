@@ -7,26 +7,22 @@ import {
   MantineProvider,
   Navbar,
   Text,
-  createStyles
+  createStyles,
 } from '@mantine/core'
-import { Settings } from 'tabler-icons-react' 
+import { Settings } from 'tabler-icons-react'
 import { useTodoStore } from '@/stores/bears'
-
+import AppHeader from '@/components/AppHeader'
 
 const useStyles = createStyles((theme) => ({
-
   cuteText: {
     color: theme.colors.red[5],
     fontSize: 20,
     fontWeight: 600,
-  }
+  },
 }))
-  
 
 export default function App({ Component, pageProps }: AppProps) {
-
-  const {classes} = useStyles();
-
+  const { classes } = useStyles()
 
   return (
     <MantineProvider
@@ -36,9 +32,8 @@ export default function App({ Component, pageProps }: AppProps) {
         colorScheme: 'light',
       }}
     >
-     
-        <Component {...pageProps} />
-    
+      <AppHeader></AppHeader>
+      <Component {...pageProps} />
     </MantineProvider>
   )
 }
