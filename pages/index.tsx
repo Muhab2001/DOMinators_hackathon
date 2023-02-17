@@ -36,6 +36,9 @@ import { LoginModal } from '@/components/LoginModal'
 import { AppNavbar } from '@/components/Navbar'
 import { useState } from 'react'
 
+import ActivityCreateModal from '@/components/ActivityModal'
+
+
 const fetcher = (input: { url: string; randomShi }) => {
   console.log(input.randomShi)
 
@@ -106,6 +109,7 @@ function Popup({ setIsOpen }) {
 export default function Home() {
   const [isOpen, setIsOpen] = useState(true)
 
+  const [activityModalOpened, activityHandler] = useDisclosure(false)
   const form = useForm({
     validate: zodResolver(schema),
     initialValues: {
@@ -119,7 +123,6 @@ export default function Home() {
     { url: 'https://api.quotable.io/random', randomShi: 'randomShi' },
     fetcher
   )
-
   const { trigger, data: postData } = useSWRMutation(
     'https://jsonplaceholder.typicode.com/posts',
     postFetcher
@@ -163,6 +166,7 @@ export default function Home() {
         <AppNavbar />
         <div></div>
         {/* <ActivityCard
+
         attendnance={10}
         category="Hackathon"
         date="2/17/2023"
