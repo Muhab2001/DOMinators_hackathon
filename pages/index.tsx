@@ -31,6 +31,7 @@ import ClubCard from '@/components/ClubCard'
 import { useDisclosure } from '@mantine/hooks'
 import { LoginModal } from '@/components/LoginModal'
 import { AppNavbar } from '@/components/Navbar'
+import ActivityCreateModal from '@/components/ActivityModal'
 
 const fetcher = (input: { url: string; randomShi }) => {
   console.log(input.randomShi)
@@ -54,6 +55,8 @@ const schema = z.object({
 })
 
 export default function Home() {
+  const [activityModalOpened, activityHandler] = useDisclosure(false)
+
   const form = useForm({
     validate: zodResolver(schema),
     initialValues: {
@@ -67,7 +70,6 @@ export default function Home() {
     { url: 'https://api.quotable.io/random', randomShi: 'randomShi' },
     fetcher
   )
-
   const { trigger, data: postData } = useSWRMutation(
     'https://jsonplaceholder.typicode.com/posts',
     postFetcher
@@ -108,6 +110,14 @@ export default function Home() {
         logo="https://images.unsplash.com/photo-1599305445671-ac291c95aaa9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bG9nb3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"
       /> */}
       <AppNavbar />
+      {/* <ActivityCard */}
+      <Button color="red" onClick={activityHandler.open}>
+        open Activity Modal
+      </Button>
+      <ActivityCreateModal
+        visible={activityModalOpened}
+        onClose={activityHandler.close}
+      />
       {/* <ActivityCard
         attendnance={10}
         category="Hackathon"
