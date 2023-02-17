@@ -75,11 +75,7 @@ const members = [
 ]
 
 function Members() {
-  return (
-    <>
-      <MembersTable members={members} />
-    </>
-  )
+  return <></>
 }
 
 export default Members

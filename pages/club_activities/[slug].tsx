@@ -6,6 +6,7 @@ import { useClub } from '@/stores/club'
 import { Container, SimpleGrid, Skeleton } from '@mantine/core'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
+import Caruousel from '@/components/Caruousel'
 import useSWR from 'swr'
 function ClubActivities() {
   const router = useRouter()
@@ -22,8 +23,8 @@ function ClubActivities() {
     : data.map((activity) => <ActivityCard {...activity} />)
   return (
     <>
-      <AppNavbar />
-      <Container className="ml-[300px]" size={1096} mb={22}>
+      {/* <AppNavbar /> */}
+      <Container size={1096} mb={22}>
         <ActivityHeader codename={slug as string} />
         <SimpleGrid
           breakpoints={[
@@ -50,6 +51,7 @@ function ClubActivities() {
             activities
           )}
         </SimpleGrid>
+        <Caruousel />
       </Container>
     </>
   )

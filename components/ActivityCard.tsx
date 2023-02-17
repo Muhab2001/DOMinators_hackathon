@@ -113,7 +113,7 @@ export function ActivityCard({
           <Badge size="md">{status}</Badge>
         </Group>
 
-        <Spoiler hideLabel="Hide" showLabel="Show more" maxHeight={40}>
+        <Spoiler mih={80} hideLabel="Hide" showLabel="Show more" maxHeight={40}>
           <Text size="sm">{description}</Text>
         </Spoiler>
       </Card.Section>
@@ -175,14 +175,19 @@ export function ActivityCard({
       </Card.Section>
 
       <Group mt="xs">
-        
-        {role === UserRole.GUEST ? 
-          <Button leftIcon={<PlayerPlay size={16} />} color="green" style={{ flex: 1 }}>
+        {role === UserRole.GUEST ? (
+          <Button
+            leftIcon={<PlayerPlay size={16} />}
+            color="green"
+            style={{ flex: 1 }}
+          >
             Start Attendance
-          </Button> : <Button color="blue" radius="md" style={{ flex: 1 }}>
-          Enroll
-        </Button>
-        }
+          </Button>
+        ) : (
+          <Button color="blue" radius="md" style={{ flex: 1 }}>
+            Enroll
+          </Button>
+        )}
       </Group>
     </Card>
   )

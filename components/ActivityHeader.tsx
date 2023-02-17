@@ -44,6 +44,7 @@ function ActivityHeader({ codename }: ActivityHeaderProps) {
           <div className="relative top-[-48px]">
             <Group align="flex-end" ml={16} spacing={16}>
               <Avatar
+                src={data?.logoImg}
                 className="border-solid border-white border-4"
                 radius={75}
                 size={150}
