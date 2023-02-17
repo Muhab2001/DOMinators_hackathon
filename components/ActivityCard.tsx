@@ -1,4 +1,10 @@
-import { Heart, Location as Calender, ColorSwatch, Location, CurrentLocation } from 'tabler-icons-react'
+import {
+  Heart,
+  Location as Calender,
+  ColorSwatch,
+  Location,
+  CurrentLocation,
+} from 'tabler-icons-react'
 import {
   Card,
   Image,
@@ -67,8 +73,8 @@ const useStyles = createStyles((theme) => ({
   iconCentring: {
     height: '100%',
     display: 'flex',
-    alignItems: 'center'
-  }
+    alignItems: 'center',
+  },
 }))
 
 export function ActivityCard({
@@ -88,14 +94,14 @@ export function ActivityCard({
   // local state for enrollement status, coupled with fetching logic
 
   return (
-    <Card withBorder radius="md" p="md"  className={classes.card}>
+    <Card withBorder radius="md" p="md" className={classes.card}>
       <Card.Section>
         <Image src={image} alt={title} height={180} />
       </Card.Section>
 
       <Card.Section className={classes.section} mt="md">
         <Group position="apart">
-          <Text color='blue' size="xl" weight={700}>
+          <Text color="blue" size="xl" weight={700}>
             {title}
           </Text>
           <Badge size="md">{status}</Badge>
@@ -106,27 +112,27 @@ export function ActivityCard({
       </Card.Section>
 
       <Card.Section className={classes.section}>
-        <Group spacing={7} my={8} align='center'>
+        <Group spacing={7} my={8} align="center">
           <Badge
-          size='lg'
-          py={8}
+            size="lg"
+            py={8}
             color={'teal'}
-            leftSection={<CurrentLocation  size={14}></CurrentLocation>}
+            leftSection={<CurrentLocation size={14}></CurrentLocation>}
           >
             <a href={locationURL}>{location}</a>
           </Badge>
           <Badge
-          size='lg'
+            size="lg"
             color={theme.colorScheme === 'dark' ? 'dark' : 'gray'}
             leftSection={<Calender size={14}></Calender>}
             classNames={{
-                leftSection: classes.iconCentring}
-            }
+              leftSection: classes.iconCentring,
+            }}
           >
             {date}
           </Badge>
           <Badge
-          size='lg'
+            size="lg"
             color={theme.colorScheme === 'dark' ? 'dark' : 'gray'}
             leftSection={<ColorSwatch size={14}></ColorSwatch>}
           >
@@ -139,10 +145,15 @@ export function ActivityCard({
           Registration
         </Text>
         <Group position="apart">
-          <Text className='font-medium text-2xl'>
+          <Text className="font-medium text-2xl">
             {registeredParticipants} / {participantsLimit}
           </Text>
-          <Text><span className='font-bold text-blue-500'>{participantsLimit - registeredParticipants}</span> Seats Left</Text>
+          <Text>
+            <span className="font-bold text-blue-500">
+              {participantsLimit - registeredParticipants}
+            </span>{' '}
+            Seats Left
+          </Text>
         </Group>
         <Progress
           value={(registeredParticipants / participantsLimit) * 100}

@@ -12,10 +12,10 @@ function MembersTable({ members }: MembersTableProps) {
       <tr key={user.id}>
         <td>{user.id}</td>
         <td>
-          <Group spacing={5}>
+          <Group spacing={8}>
             <Avatar
               radius={'xl'}
-              size={'md'}
+              size={'sm'}
               alt={user.name + ' avatar'}
               src={user.avatar}
             ></Avatar>
@@ -23,6 +23,7 @@ function MembersTable({ members }: MembersTableProps) {
           </Group>
         </td>
         <td>{user.email}</td>
+        {/* shall be transformed to roles dropdown for an admin */}
         <td>{user.role}</td>
         <td>
           <Group spacing={3}>

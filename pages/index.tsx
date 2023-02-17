@@ -22,6 +22,7 @@ import axios from 'axios'
 import { ActivityCard, ActivityStatus } from '@/components/ActivityCard'
 import MembersTable from '@/components/MembersTable'
 import { UserRole } from '@/stores/profile'
+import ClubCard from '@/components/ClubCard'
 
 const fetcher = (input: { url: string; randomShi }) => {
   console.log(input.randomShi)
@@ -87,11 +88,16 @@ export default function Home() {
   ))
 
   return (
-    <div
-      suppressHydrationWarning
-      className="flex items-center flex-col"
-    >
-      <ActivityCard
+    <div suppressHydrationWarning className="flex items-center flex-col">
+      <ClubCard
+        memberCount={70}
+        recentActivities={5}
+        codename="CC"
+        name="Computer Club"
+        description="The official computer club page in KFUPM"
+        logo="https://images.unsplash.com/photo-1599305445671-ac291c95aaa9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bG9nb3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"
+      />
+      {/* <ActivityCard
         attendnance={10}
         category="Hackathon"
         date="2/17/2023"
@@ -103,7 +109,7 @@ export default function Home() {
         registeredParticipants={30}
         status={ActivityStatus.onGoing}
         title="Hacha Hackathon"
-      />
+      /> */}
       {/* <form
         className="w-96"
         onSubmit={form.onSubmit((values, _event) => {
@@ -134,7 +140,7 @@ export default function Home() {
         </Button>
       </form> */}
 
-      <MembersTable
+      {/* <MembersTable
         members={[
           {
             id: 4,
@@ -169,7 +175,7 @@ export default function Home() {
               'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8YXZhdGFyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60',
           },
         ]}
-      />
+      /> */}
       <Button
         leftIcon={<AlertTriangle size={16} />}
         variant="light"
