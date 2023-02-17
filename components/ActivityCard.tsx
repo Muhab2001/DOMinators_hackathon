@@ -1,9 +1,10 @@
 import {
   Heart,
-  Location as Calender,
-  ColorSwatch,
   Location,
+  CalendarEvent,
+  ColorSwatch,
   CurrentLocation,
+  PlayerPlay,
 } from 'tabler-icons-react'
 import {
   Card,
@@ -15,7 +16,9 @@ import {
   ActionIcon,
   createStyles,
   Progress,
+  Spoiler,
 } from '@mantine/core'
+import { UserRole, useProfile } from '@/stores/profile'
 
 export enum ActivityStatus {
   onGoing = 'On Going',
@@ -31,7 +34,7 @@ interface IActivityCardProps {
   date: string
   participantsLimit: number
   registeredParticipants: number
-  attendnance: number
+  attendanceCount: number
   status: ActivityStatus
   category: string
   location: string
@@ -50,8 +53,8 @@ const useStyles = createStyles((theme) => ({
     }`,
     paddingLeft: theme.spacing.md,
     paddingRight: theme.spacing.md,
-    paddingBottom: theme.spacing.md,
-    paddingTop: theme.spacing.md,
+    paddingBottom: theme.spacing.xs,
+    paddingTop: theme.spacing.xs,
   },
 
   like: {
@@ -85,34 +88,38 @@ export function ActivityCard({
   category,
   participantsLimit,
   registeredParticipants,
-  attendnance,
+  attendanceCount: attendnance,
   status,
   location,
   locationURL,
 }: IActivityCardProps) {
   const { classes, theme } = useStyles()
   // local state for enrollement status, coupled with fetching logic
+  const { role } = useProfile((state) => ({
+    role: state.role,
+  }))
 
   return (
-    <Card withBorder radius="md" p="md" className={classes.card}>
+    <Card withBorder radius="md" p="sm" className={classes.card}>
       <Card.Section>
         <Image src={image} alt={title} height={180} />
       </Card.Section>
 
-      <Card.Section className={classes.section} mt="md">
+      <Card.Section className={classes.section}>
         <Group position="apart">
           <Text color="blue" size="xl" weight={700}>
             {title}
           </Text>
           <Badge size="md">{status}</Badge>
         </Group>
-        <Text size="sm" mt="xs">
-          {description}
-        </Text>
+
+        <Spoiler hideLabel="Hide" showLabel="Show more" maxHeight={40}>
+          <Text size="sm">{description}</Text>
+        </Spoiler>
       </Card.Section>
 
       <Card.Section className={classes.section}>
-        <Group spacing={7} my={8} align="center">
+        <Group spacing={7} my={4} align="center">
           <Badge
             size="lg"
             py={8}
@@ -123,8 +130,8 @@ export function ActivityCard({
           </Badge>
           <Badge
             size="lg"
-            color={theme.colorScheme === 'dark' ? 'dark' : 'gray'}
-            leftSection={<Calender size={14}></Calender>}
+            color={theme.colorScheme === 'dark' ? 'dark' : 'blue'}
+            leftSection={<CalendarEvent size={14}></CalendarEvent>}
             classNames={{
               leftSection: classes.iconCentring,
             }}
@@ -133,7 +140,7 @@ export function ActivityCard({
           </Badge>
           <Badge
             size="lg"
-            color={theme.colorScheme === 'dark' ? 'dark' : 'gray'}
+            color={theme.colorScheme === 'dark' ? 'dark' : 'orange'}
             leftSection={<ColorSwatch size={14}></ColorSwatch>}
           >
             {category}
@@ -141,7 +148,7 @@ export function ActivityCard({
         </Group>
       </Card.Section>
       <Card.Section className={classes.section}>
-        <Text mt="md" className={classes.label} color="dimmed">
+        <Text className={classes.label} color="dimmed">
           Registration
         </Text>
         <Group position="apart">
@@ -168,9 +175,14 @@ export function ActivityCard({
       </Card.Section>
 
       <Group mt="xs">
-        <Button radius="md" style={{ flex: 1 }}>
+        
+        {role === UserRole.GUEST ? 
+          <Button leftIcon={<PlayerPlay size={16} />} color="green" style={{ flex: 1 }}>
+            Start Attendance
+          </Button> : <Button color="blue" radius="md" style={{ flex: 1 }}>
           Enroll
         </Button>
+        }
       </Group>
     </Card>
   )

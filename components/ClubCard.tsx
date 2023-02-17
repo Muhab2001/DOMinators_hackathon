@@ -36,9 +36,9 @@ function ClubCard(props, { className }: ClubCardProps) {
   return (
     <>
       <Link href={'club_activities/' + props.codename}>
-        <Card withBorder radius="md" p="sm" classNames={className}>
+        <Card withBorder radius="md" classNames={className}>
           {/* section for the logo, title, and short description */}
-          <Card.Section p={'md'} withBorder>
+          <Card.Section p="xl" withBorder>
             <Group align="center" spacing={8}>
               <Avatar radius={'xl'} src={props.logo} />
 
@@ -46,7 +46,14 @@ function ClubCard(props, { className }: ClubCardProps) {
                 {props.name}
               </Text>
             </Group>
-            <Text mt={8} ml={2} size={'sm'}>
+            <Text
+              mt={8}
+              ml={2}
+              size={'sm'}
+              mih={50}
+              mah={50}
+              className="truncate break-all whitespace-normal text-ellipsis overflow-hidden"
+            >
               {props.description}
             </Text>
           </Card.Section>
