@@ -4,8 +4,8 @@ import UserButton from '@/components/UserButton'
 function AppHeader() {
   return (
     <>
-      <Header p={6} px={16} height={80}>
-        <Group align="center" position="apart"  >
+      <Header className="fixed" zIndex={10} p={6} px={26} height={80}>
+        <Group align="center" position="apart">
           <Group spacing={5}>
             <Text size={40} weight={300}>
               KFUPM

@@ -24,6 +24,8 @@ const useStyles = createStyles((theme, _params, getRef) => {
       position: 'fixed',
       left: 0,
       zIndex: 1,
+      bottom: 0,
+      height: 'calc(100vh - 80px)',
     },
 
     version: {

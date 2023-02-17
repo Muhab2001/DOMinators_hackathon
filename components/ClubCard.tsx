@@ -46,7 +46,14 @@ function ClubCard(props, { className }: ClubCardProps) {
                 {props.name}
               </Text>
             </Group>
-            <Text mt={8} ml={2} size={'sm'} mih={50}>
+            <Text
+              mt={8}
+              ml={2}
+              size={'sm'}
+              mih={50}
+              mah={50}
+              className="truncate break-all whitespace-normal text-ellipsis overflow-hidden"
+            >
               {props.description}
             </Text>
           </Card.Section>

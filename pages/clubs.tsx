@@ -16,7 +16,7 @@ function ClubsList() {
     <>
       <div className="w-full h-full mt-6">
         <Grid className="pl-36 h-full w-full">
-          <Grid.Col className="mb-6" span={10}>
+          <Grid.Col className="mb-3" span={10}>
             <SearchField />
           </Grid.Col>
 
@@ -35,7 +35,6 @@ function ClubsList() {
               </Grid.Col>
               <Grid.Col span={4}>
                 <ClubCard
-                  className="w-1/3"
                   name="Computer Club"
                   codename="CC"
                   logo="https://images.unsplash.com/photo-1527004013197-933c4bb611b3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=720&q=80"
@@ -46,40 +45,6 @@ function ClubsList() {
               </Grid.Col>
               <Grid.Col span={4}>
                 <ClubCard
-                  className="w-1/3"
-                  name="Computer Club"
-                  codename="CC"
-                  logo="https://images.unsplash.com/photo-1527004013197-933c4bb611b3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=720&q=80"
-                  memberCount={40}
-                  description="KFUPM Computer club"
-                  activitiesCount={10}
-                />
-              </Grid.Col>
-              <Grid.Col span={4}>
-                <ClubCard
-                  className="h-1/3"
-                  name="Computer Club"
-                  codename="CC"
-                  logo="https://images.unsplash.com/photo-1527004013197-933c4bb611b3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=720&q=80"
-                  memberCount={40}
-                  description="KFUPM Computer club"
-                  activitiesCount={10}
-                />
-              </Grid.Col>
-              <Grid.Col span={4}>
-                <ClubCard
-                  className="w-1/3"
-                  name="Computer Club"
-                  codename="CC"
-                  logo="https://images.unsplash.com/photo-1527004013197-933c4bb611b3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=720&q=80"
-                  memberCount={40}
-                  description="KFUPM Computer club"
-                  activitiesCount={10}
-                />
-              </Grid.Col>
-              <Grid.Col span={4}>
-                <ClubCard
-                  className="w-1/3"
                   name="Computer Club"
                   codename="CC"
                   logo="https://images.unsplash.com/photo-1527004013197-933c4bb611b3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=720&q=80"
@@ -101,7 +66,37 @@ function ClubsList() {
               </Grid.Col>
               <Grid.Col span={4}>
                 <ClubCard
-                  className="w-1/3"
+                  name="Computer Club"
+                  codename="CC"
+                  logo="https://images.unsplash.com/photo-1527004013197-933c4bb611b3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=720&q=80"
+                  memberCount={40}
+                  description="KFUPM Computer club"
+                  activitiesCount={10}
+                />
+              </Grid.Col>
+              <Grid.Col span={4}>
+                <ClubCard
+                  name="Computer Club"
+                  codename="CC"
+                  logo="https://images.unsplash.com/photo-1527004013197-933c4bb611b3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=720&q=80"
+                  memberCount={40}
+                  description="KFUPM Computer club"
+                  activitiesCount={10}
+                />
+              </Grid.Col>
+              <Grid.Col span={4}>
+                <ClubCard
+                  className="h-1/3"
+                  name="Computer Club"
+                  codename="CC"
+                  logo="https://images.unsplash.com/photo-1527004013197-933c4bb611b3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=720&q=80"
+                  memberCount={40}
+                  description="KFUPM Computer club"
+                  activitiesCount={10}
+                />
+              </Grid.Col>
+              <Grid.Col span={4}>
+                <ClubCard
                   name="Computer Club"
                   codename="CC"
                   logo="https://images.unsplash.com/photo-1527004013197-933c4bb611b3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=720&q=80"
@@ -112,7 +107,6 @@ function ClubsList() {
               </Grid.Col>
               <Grid.Col span={4}>
                 <ClubCard
-                  className="w-1/3"
                   name="Computer Club"
                   codename="CC"
                   logo="https://images.unsplash.com/photo-1527004013197-933c4bb611b3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=720&q=80"
