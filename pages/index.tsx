@@ -12,7 +12,12 @@ import {
   Text,
 } from '@mantine/core'
 import { RecordType, z } from 'zod'
-import { AlertTriangle, CircleCheck, CircleDashed } from 'tabler-icons-react'
+import {
+  AlertTriangle,
+  CircleCheck,
+  CircleDashed,
+  NewSection,
+} from 'tabler-icons-react'
 import { Todo, useTodoStore } from '@/stores/bears'
 // import ListView from '@/components/list'
 import dynamic from 'next/dynamic'
@@ -22,6 +27,10 @@ import axios from 'axios'
 import { ActivityCard, ActivityStatus } from '@/components/ActivityCard'
 import MembersTable from '@/components/MembersTable'
 import { UserRole } from '@/stores/profile'
+import ClubCard from '@/components/ClubCard'
+import { useDisclosure } from '@mantine/hooks'
+import { LoginModal } from '@/components/LoginModal'
+import { AppNavbar } from '@/components/Navbar'
 
 const fetcher = (input: { url: string; randomShi }) => {
   console.log(input.randomShi)
@@ -64,6 +73,8 @@ export default function Home() {
     postFetcher
   )
 
+  const [opened, handlers] = useDisclosure(false)
+
   const todos = useTodoStore((state) => state.todos)
   const toggleTodo = useTodoStore((state) => state.toggleTodo)
   const list = Object.values(todos).map((todo: Todo) => (
@@ -87,11 +98,17 @@ export default function Home() {
   ))
 
   return (
-    <div
-      suppressHydrationWarning
-      className="flex items-center flex-col"
-    >
-      <ActivityCard
+    <div suppressHydrationWarning className="flex items-center flex-col">
+      {/* <ClubCard
+        memberCount={70}
+        activitiesCount={5}
+        codename="CC"
+        name="Computer Club"
+        description="The official computer club page in KFUPM"
+        logo="https://images.unsplash.com/photo-1599305445671-ac291c95aaa9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bG9nb3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"
+      /> */}
+      <AppNavbar />
+      {/* <ActivityCard
         attendnance={10}
         category="Hackathon"
         date="2/17/2023"
@@ -103,7 +120,7 @@ export default function Home() {
         registeredParticipants={30}
         status={ActivityStatus.onGoing}
         title="Hacha Hackathon"
-      />
+      /> */}
       {/* <form
         className="w-96"
         onSubmit={form.onSubmit((values, _event) => {
@@ -134,7 +151,7 @@ export default function Home() {
         </Button>
       </form> */}
 
-      <MembersTable
+      {/* <MembersTable
         members={[
           {
             id: 4,
@@ -169,7 +186,16 @@ export default function Home() {
               'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8YXZhdGFyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60',
           },
         ]}
-      />
+      /> */}
+      <Button
+        leftIcon={<NewSection size={16} />}
+        variant="light"
+        onClick={() => handlers.open()}
+        type="submit"
+        mt="lg"
+      >
+        Open login
+      </Button>
       <Button
         leftIcon={<AlertTriangle size={16} />}
         variant="light"
@@ -179,22 +205,7 @@ export default function Home() {
       >
         Force revalidation
       </Button>
-      <Button
-        leftIcon={<AlertTriangle size={16} />}
-        variant="light"
-        onClick={() =>
-          trigger({
-            title: 'foo',
-            body: 'bar',
-            userId: 1,
-          })
-        }
-        type="submit"
-        mt="lg"
-      >
-        POST request
-      </Button>
-      {postData && <Text className="pt-4">We have Fetched: {postData.id}</Text>}
+      <LoginModal visible={opened} onClose={handlers.close} />
     </div>
   )
 }
