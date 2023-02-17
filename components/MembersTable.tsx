@@ -1,85 +1,104 @@
-import { ActionIcon, Group, Table, Image, Avatar, Tooltip } from '@mantine/core'
+import { Grid, createStyles } from '@mantine/core'
 
-import { Pencil, Trash } from 'tabler-icons-react'
-
+import {
+  BrandTwitter,
+  BrandFacebook,
+  BrandLinkedin
+} from 'tabler-icons-react'
 interface MembersTableProps {
   members: UserProfile[]
 }
+const useStyles = createStyles((theme) => ({
+  Avatar: {
+    borderRadius: '75%',
+  },
+  card: {
+    backgroundColor:
+      theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.white,
+  },
 
-import { Grid, Card, Text } from '@mantine/core';
+  section: {
+    borderBottom: `1px solid ${
+      theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[3]
+    }`,
+    paddingLeft: theme.spacing.md,
+    paddingRight: theme.spacing.md,
+    paddingBottom: theme.spacing.md,
+    paddingTop: theme.spacing.md,
+  },
 
-const ClubMembers = ({ members }) => {
-  return (
-    <Grid columns={3}>
-      {members.map((member) => (
-        <Card key={member.id}>
-          <img src={member.avatar} alt={`${member.name} avatar`} />
-          <Text weight={500}>{member.name}</Text>
-          <Text>{member.email}</Text>
-          <Text>{member.role}</Text>
-        </Card>
-      ))}
-    </Grid>
-  );
-};
-        
+  like: {
+    color: theme.colors.red[6],
+  },
+
+  label: {
+    textTransform: 'uppercase',
+    fontSize: theme.fontSizes.xs,
+    fontWeight: 700,
+  },
+  progressBar: {
+    backgroundColor: theme.colors.blue[5],
+  },
+
+  progressTrack: {
+    backgroundColor: theme.colors.blue[2],
+  },
+  iconCentring: {
+    height: '100%',
+    display: 'flex',
+    alignItems: 'center',
+  },
+}))
+
 
 function MembersTable({ members }: MembersTableProps) {
-
-  const rows =
-      <Grid columns={3}>
-      <Grid.Col span={4}>1</Grid.Col>
+  const classes = useStyles()
+  return (
+    <Grid ml={300} mr={300} columns={4}>
       {members.map((member) => (
-        <Card key={member.id}>
-          <img src={member.avatar} alt={`${member.name} avatar`} />
-          <Text weight={500}>{member.name}</Text>
-          <Text>{member.email}</Text>
-          <Text>{member.role}</Text>
-        </Card>
+        member.role == 'club_president' ? <>
+        <Grid.Col span={4}>
+          <div className='our-team' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+
+            <img
+              src="https://hips.hearstapps.com/hmg-prod/images/barack-obama-12782369-1-402.jpg?crop=1xw:0.75xh;center,top&resize=1200:*"
+              alt="Member avatar"
+              style={{ width: '150px', height: '150px', borderRadius: '60%' }}
+              className="pic"
+            >
+            </img>
+            <h3 className="title">{member.name}</h3>
+            <span className="post"> {member.role}</span>
+            <ul className="social">
+              <BrandTwitter />
+              <BrandLinkedin />
+              <BrandFacebook />
+            </ul>
+          </div>
+
+        </Grid.Col>
+        </> : <>
+        <Grid.Col span={2}>
+          <div className='our-team' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+            <img
+              src="https://hips.hearstapps.com/hmg-prod/images/barack-obama-12782369-1-402.jpg?crop=1xw:0.75xh;center,top&resize=1200:*"
+              alt="Member avatar"
+              style={{ width: '150px', height: '150px', borderRadius: '60%' }}
+              className="pic"
+            >
+            </img>
+            <h3 className="title">{member.name}</h3>
+            <span className="post"> {member.role}</span>
+            <ul className="social">
+              <BrandTwitter />
+              <BrandLinkedin />
+              <BrandFacebook />
+            </ul>
+          </div>
+
+        </Grid.Col></>
       ))}
     </Grid>
-  
-  // const rows = members.map((user) => {
-    // return (
-    //   <tr key={user.id}>
-    //     <td>{user.id}</td>
-    //     <td>
-    //       <Group spacing={8}>
-    //         <Avatar
-    //           radius={'xl'}
-    //           size={'sm'}
-    //           alt={user.name + ' avatar'}
-    //           src={user.avatar}
-    //         ></Avatar>
-    //         <span>{user.name}</span>
-    //       </Group>
-    //     </td>
-    //     <td>{user.email}</td>
-    //     {/* shall be transformed to roles dropdown for an admin */}
-    //     <td>{user.role}</td>
-    //     <td>
-    //       <Group spacing={3}>
-    //         <Tooltip label="Kick Member" withArrow>
-    //           <ActionIcon variant="light" color="red">
-    //             <Trash size={16}></Trash>
-    //           </ActionIcon>
-    //         </Tooltip>
-    //         <Tooltip label="Edit Member Credentials" withArrow>
-    //           <ActionIcon variant="light" color="blue">
-    //             <Pencil size={16}></Pencil>
-    //           </ActionIcon>
-    //         </Tooltip>
-    //       </Group>
-    //     </td>
-    //   </tr>
-    // )
-  // }
-  // )
-
-  return (
-    <>
-{rows}
-    </>
   )
 }
 
