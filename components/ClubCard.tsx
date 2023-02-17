@@ -62,7 +62,7 @@ function ClubCard(props: ClubCardProps) {
                 </Text>
               </Group>
               <Group spacing={0}>
-                <ActionIcon px={0} mx={0} color="blue" variant="transparent">
+                <ActionIcon px={0} mx={0} color="teal" variant="transparent">
                   <Activity size={16} />
                 </ActionIcon>
                 <Text mx={0} size={'sm'}>
