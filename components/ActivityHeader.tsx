@@ -10,6 +10,7 @@ import {
   Spoiler,
 } from '@mantine/core'
 import useSWR from 'swr'
+
 import { BrandFacebook, BrandInstagram, BrandTwitter } from 'tabler-icons-react'
 
 interface ActivityHeaderProps {
@@ -53,6 +54,7 @@ function ActivityHeader({ codename }: ActivityHeaderProps) {
                 {data?.clubName}
               </Text>
             </Group>
+
             <Spoiler
               px={74}
               showLabel="Show more"
