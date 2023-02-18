@@ -37,6 +37,7 @@ export class ActivityClient {
         registeredParticipants: 5,
         attendanceCount: 5,
         image: 'https://i.imgur.com/snAxpbr.jpg',
+        image: 'https://i.imgur.com/snAxpbr.jpg',
         status: ActivityStatus.onGoing,
         category: 'Category 1',
         locationURL: 'https://www.google.com/maps',
