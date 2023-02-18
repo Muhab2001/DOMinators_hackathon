@@ -13,6 +13,8 @@ import {
 } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import useSWR from 'swr'
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 
 import {
   Adjustments,
@@ -109,9 +111,24 @@ function ActivityHeader({ codename }: ActivityHeaderProps) {
               maxHeight={80}
               mt={12}
             >
-              <Text color="grey" weight={400}>
+              {data?.description ? (
+                <ReactMarkdown
+                  children={data?.description}
+                  remarkPlugins={[remarkGfm]}
+                />
+              ) : (
+                <Stack spacing={5}>
+                  <Skeleton height={8} />
+                  <Skeleton height={8} />
+                  <Skeleton height={8} />
+                  <Skeleton height={8} />
+                  <Skeleton height={8} width={'50%'} />
+                </Stack>
+              )}
+
+              {/* <Text color="grey" weight={400}>
                 {data?.description}
-              </Text>
+              </Text> */}
             </Spoiler>
           </div>
         )}
