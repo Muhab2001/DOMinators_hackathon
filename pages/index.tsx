@@ -43,6 +43,9 @@ import { UserPlus } from 'tabler-icons-react'
 
 // import ActivityCreateModal from '@/components/ActivityModal'
 
+import ActivityCreateModal from '@/components/ActivityModal'
+import InvoiceDownloadButton from '@/components/InvoiceDownloadButton'
+
 // const fetcher = (input: { url: string; randomShi }) => {
 //   console.log(input.randomShi)
 
@@ -272,6 +275,39 @@ import { UserPlus } from 'tabler-icons-react'
 //     </>
 //   )
 // }
+
+const invoiceData = {
+  id: '5df3180a09ea16dc4b95f910',
+  title: 'Invoice_Title',
+  invoice_no: '',
+  supervisor: 'Ahmed Ali',
+  club: 'Computer Science',
+  amount: '1500',
+  studentID: '201857300',
+  phone: '0500000000',
+  date: '2023-2-18',
+  justification: 'Cover Expenses',
+  items: [
+    {
+      sno: 1,
+      desc: 'Beverage',
+      qty: 100,
+      rate: 3,
+    },
+    {
+      sno: 2,
+      desc: 'Food',
+      qty: 100,
+      rate: 20,
+    },
+    {
+      sno: 3,
+      desc: 'Reservation',
+      qty: 1,
+      rate: 1000,
+    },
+  ],
+}
 
 export default function Home() {
   return (
