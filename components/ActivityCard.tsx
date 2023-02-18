@@ -50,6 +50,7 @@ interface IActivityCardProps {
   category: string
   location: string
   locationURL: string
+  openInvoiceModal: (activity_id: number | string) => void
 }
 
 const useStyles = createStyles((theme) => ({
@@ -105,6 +106,7 @@ export function ActivityCard({
   status,
   location,
   locationURL,
+  openInvoiceModal,
 }: IActivityCardProps) {
   const { classes, theme } = useStyles()
   const [opened, handlers] = useDisclosure(false)
@@ -244,7 +246,7 @@ export function ActivityCard({
           />
         </Card.Section>
         <Card.Section className={classes.section}>
-          <Group mt="xs">
+          <Group className="w-full" mt="xs">
             {role === UserRole.GUEST ? (
               <Stack style={{ width: '100%' }} spacing={8}>
                 <Button
@@ -267,10 +269,10 @@ export function ActivityCard({
                     Cancel
                   </Button>
                   <Button
-                    onClick={handlers.open}
+                    onClick={() => openInvoiceModal(id)}
                     leftIcon={<FileInvoice size={16} />}
                     color="blue.6"
-                    style={{ flex: 1 }}
+                    style={{ flex: 1, width: '100%' }}
                     py={8}
                   >
                     Create Invoice

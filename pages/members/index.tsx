@@ -86,52 +86,55 @@ function Members() {
   return (
     <>
       {/* <MembersTable members={members} /> */}
-      <div style={{backgroundColor: '#F5F7FA', height: '100%', padding:'40px'}}>
-      <div className='flex justify-between'>
-        <h2 className='p-5 text-[#5c626c] items-start'>
-          Club Members
-        </h2>  
-        <button type="button" className="py-2.5 px-5 mr-2 mb-2 mt-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-            Add Memeber
-            </button>       
-      </div>
-<div className='grid gap-5 grid-cols-4 grid-rows-4 items-center	'>
-        {members.map((member) => (
-
-<div className='flex flex-col justify-center p-3 bg-white rounded-md shadow-md h-80	items-center' style={{display: 'flex', overflow: 'hidden'}}>
-
-<Tooltip label="Kick Member" withArrow>
-<ActionIcon className='flex items-end self-end' color="black">
-                <X size={16}></X>
-              </ActionIcon>
-
-            </Tooltip>
-        <Image
-        style={{borderRadius: '70%'}}
-        className='mb-6'
-src = 'https://rlv.zcache.com/barack_obama_us_president_white_house_portrait_rec_square_sticker-r1404a5d4f9a6453686aef974567eb824_0ugmc_8byvr_736.webp'
-              alt="Club Memeber"
-      width={100}
-      height={100}  
+      <div className="flex pt-20 justify-between">
+        <h2 className="p-5 text-[#5c626c] items-start">Club Members</h2>
+        <button
+          type="button"
+          className="py-2.5 px-5 mr-2 mb-2 mt-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
         >
-        </Image>
-        <p className='font-serif text-xl '> 
-        {member.name}
-        </p>
-        <p className='text-[#5c626c] '>
-        {member.role}
-          </p>
-          <div className='flex mt-2'>
-            {/* TO DO: Get color acceent from clubclient */}
-          <button type="button" className="py-2.5 px-10 mr-2 mb-2 mt-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-            Edit
-            </button>
+          Add Memeber
+        </button>
+      </div>
+      <div className="w-full justify-center flex">
+        <div className="grid gap-5 grid-cols-3 max-w-[1220px] grid-rows-4 items-center	">
+          {members.map((member) => (
+            <div
+              className="flex w-80 flex-col justify-center p-3 bg-white rounded-md shadow-md h-80	items-center"
+              style={{ display: 'flex', overflow: 'hidden' }}
+            >
+              <Tooltip label="Kick Member" withArrow>
+                <ActionIcon className="flex items-end self-end" color="black">
+                  <X size={16}></X>
+                </ActionIcon>
+              </Tooltip>
+              <Image
+                style={{ borderRadius: '70%' }}
+                className="mb-6"
+                loader={() =>
+                  'https://rlv.zcache.com/barack_obama_us_president_white_house_portrait_rec_square_sticker-r1404a5d4f9a6453686aef974567eb824_0ugmc_8byvr_736.webp'
+                }
+                src="https://rlv.zcache.com/barack_obama_us_president_white_house_portrait_rec_square_sticker-r1404a5d4f9a6453686aef974567eb824_0ugmc_8byvr_736.webp"
+                alt="Club Memeber"
+                width={100}
+                height={100}
+              ></Image>
+              <p className="font-serif text-xl ">{member.name}</p>
+              <p className="text-[#5c626c] ">{member.role}</p>
+              <div className="flex mt-2">
+                {/* TO DO: Get color acceent from clubclient */}
+                <button
+                  type="button"
+                  className="py-2.5 px-10 mr-2 mb-2 mt-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                >
+                  Edit
+                </button>
+              </div>
             </div>
-             </div>
- ))}
-
-function Members() {
-  return <></>
+          ))}
+        </div>
+      </div>
+    </>
+  )
 }
 
 export default Members

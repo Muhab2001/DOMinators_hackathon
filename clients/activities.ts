@@ -94,8 +94,7 @@ export class ActivityClient {
     return [
       {
         id: 1,
-        title:
-          '+ fugiat aliqua quis irure aliqua consectetur duis eu e duis.',
+        title: '+ fugiat aliqua quis irure aliqua consectetur duis eu e duis.',
         date: '2023-18-02',
         description:
           'Excepteur velit tempor tempor consequat voluptate consequat voluptate est ex. Ipsum culpa ad commodo culpa laborum quis deserunt et duis sunt deserunt irure eiusmod. Culpa sit ea exercitation ad adipisicing nisi ea officia enim ipsum id fugiat consequat Lorem. Anim pariatur duis pariatur aliqua aute velit officia reprehenderit ea irure pariatur.',
@@ -188,7 +187,7 @@ export class ActivityClient {
     ]
   }
 
-  static async getInvoice(activity_id: number): Promise<Invoice> {
+  static async getInvoice({ id: number, key: string }): Promise<Invoice> {
     return {
       amount: 100,
       date: '2020-01-01',

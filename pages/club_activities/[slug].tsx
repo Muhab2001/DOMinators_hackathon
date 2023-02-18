@@ -6,10 +6,11 @@ import { AppNavbar } from '@/components/Navbar'
 import { useClub } from '@/stores/club'
 import { Container, SimpleGrid, Skeleton } from '@mantine/core'
 import { useRouter } from 'next/router'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import Caruousel from '@/components/Caruousel'
 import useSWR from 'swr'
-
+import { useDisclosure } from '@mantine/hooks'
+import InvoiceModal from '@/components/InvoiceModal'
 
 function ClubActivities() {
   const router = useRouter()
@@ -19,14 +20,26 @@ function ClubActivities() {
     ActivityClient.getClubActivities
   )
 
-  console.log(data, typeof data)
+  const [opened, handlers] = useDisclosure(false)
+  const [invoiceActivity, setInvoiceActivity] = useState<number | string>(0)
+
+  function openInvoiceModal(activity_id: number | string) {
+    setInvoiceActivity(activity_id)
+    handlers.open()
+  }
 
   const activities = !data
     ? []
-    : data.map((activity) => <ActivityCard {...activity} />)
+    : data.map((activity) => (
+        <ActivityCard {...activity} openInvoiceModal={openInvoiceModal} />
+      ))
   return (
     <>
-      {/* <AppNavbar /> */}
+      <InvoiceModal
+        activity_id={invoiceActivity}
+        visible={opened}
+        onClose={handlers.close}
+      />
       <Container size={926} mb={22}>
         <ActivityHeader codename={slug as string} />
         <Caruousel />
@@ -56,7 +69,6 @@ function ClubActivities() {
           )}
         </SimpleGrid>
       </Container>
-     
     </>
   )
 }
