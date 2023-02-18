@@ -1,4 +1,5 @@
 import { ActivityStatus } from '@/components/ActivityCard'
+import axios from 'axios';
 
 export interface IActivity {
   id: number
@@ -28,46 +29,36 @@ export class ActivityClient {
     clubId,
     path,
   }): Promise<(IActivity & { clubname: string; supervisor: string })[]> {
-    return [
-      {
-        id: 1,
-        title: 'Laravel framework workshop',
-        date: '2020-01-01',
-        description:
-          'Excepteur velit tempor tempor consequat voluptate consequat voluptate est ex. Ipsum culpa ad commodo culpa laborum quis deserunt et duis sunt deserunt irure eiusmod. Culpa sit ea exercitation ad adipisicing nisi ea officia enim ipsum id fugiat consequat Lorem. Anim pariatur duis pariatur aliqua aute velit officia reprehenderit ea irure pariatur.',
-        location: 'building 54',
-        participantsLimit: 10,
-        registeredParticipants: 5,
-        attendanceCount: 5,
-        image: 'https://i.imgur.com/snAxpbr.jpg',
-        status: ActivityStatus.onGoing,
-        category: 'Category 1',
-        locationURL: 'https://www.google.com/maps',
-        clubname: 'a club name',
-        supervisor: 'string',
-      },
-      {
-        id: 2,
-        title: 'Club Activity 1',
-        date: '2020-01-01',
-        description: 'Club Activity 1 Description',
-        location: 'Building 68',
-        participantsLimit: 10,
-        registeredParticipants: 5,
-        attendanceCount: 5,
-        image: 'https://i.imgur.com/snAxpbr.jpg',
-        status: ActivityStatus.cancelled,
-        category: 'Category 1',
-        locationURL: 'https://www.google.com/maps',
-        clubname: 'a club name 2',
-        supervisor: 'string 2',
-      },
-    ]
+
+
+
+    const data = (await axios.get(`http://localhost:8000/api/activities/?format=json`)).data;
+
+    console.log(clubId)
+    const cleaned = data.map(obj => ({
+      id: obj.id,
+      title: obj.title,
+      data: obj.updated_on,
+      description: obj.description,
+      location: obj.location,
+      locationURL: obj.location_link,
+      participantsLimit: obj.attendance_max,
+      image: obj.image,
+      status: ActivityStatus.onGoing,
+      supervisor: obj.supervisor,
+      registeredParticipants: obj.count,
+      attendanceCount: obj.count,
+      clubname: obj.club,
+    }));
+
+
+    return cleaned;
   }
 
   static async getActivityDetails({
-    acitivity_id: number,
+    acitivity_id, number,
   }): Promise<IActivity> {
+
     return {
       id: 4,
       title: 'Club Activity 1',
@@ -87,7 +78,8 @@ export class ActivityClient {
   static async registerForActivity(
     activity_id: number,
     email: string
-  ): Promise<void> {}
+  ): Promise<void> {
+  }
 
   static async generateActivityQR(club_codename: string, activity_id: string) {
     return 'dgkmldfngfdxgudrhergferg'
@@ -173,6 +165,9 @@ export class ActivityClient {
 
   static async recordAttendance(activity_id: string, user_id: string) {
     // we do some shit
+    const data = (await axios.post('http://localhost:8000/api/registrations/', { activity_id, user_id })).data;
+
+    console.log(data)
   }
 
   static async saveInvoice(
