@@ -1,5 +1,15 @@
-import { Group as Stack, Modal, Text, TextInput, Button } from '@mantine/core'
+import {
+  Group as Stack,
+  Modal,
+  Text,
+  TextInput,
+  Button,
+  Divider,
+  Group,
+  ActionIcon,
+} from '@mantine/core'
 import { useForm } from '@mantine/form'
+import { Link, Trash } from 'tabler-icons-react'
 import { z } from 'zod'
 
 const schema = z.object({
@@ -41,17 +51,32 @@ function EnrollementModal({
 
   //   TODO: insert the link contents, and URLs
   const fields = form.values.links.map((_, index) => (
-    <Stack mb={3}>
-      <TextInput label="Purpose" placeholder="Link Purpose"></TextInput>
-      <TextInput label="URL" placeholder="Enter the URL"></TextInput>
-      <Button
-        onClick={() => {
-          form.removeListItem('links', index)
-        }}
-        color="red"
-      >
-        Delete Link
-      </Button>
+    <Stack spacing={5} mb={16}>
+      <Group style={{ width: '100%' }} position="apart">
+        <Text size={'md'}>Link #{index + 1}</Text>
+        {index !== 0 && (
+          <Button
+            variant="light"
+            onClick={() => {
+              form.removeListItem('links', index)
+            }}
+            leftIcon={<Trash />}
+            color="red"
+          >
+            Delete link
+          </Button>
+        )}{' '}
+      </Group>
+      <TextInput
+        style={{ flex: 1 }}
+        label="Purpose"
+        placeholder="Link Purpose"
+      ></TextInput>
+      <TextInput
+        style={{ flex: 1 }}
+        label="URL"
+        placeholder="Enter the URL"
+      ></TextInput>
     </Stack>
   ))
 
@@ -60,17 +85,32 @@ function EnrollementModal({
       <Modal
         onClose={onClose}
         title={
-          <Text weight={700} color="blue">
-            Enroll for{title}
+          <Text weight={700}>
+            Enroll for <span className="to-blue-400">{title}</span>
           </Text>
         }
         opened={visible}
       >
         <form onSubmit={form.onSubmit((values) => {})}>
+          <Text size={'xl'} weight={600}>
+            Personal Information
+          </Text>
+          <Text mb={5} size={'md'}>
+            Enter your Credentials to join the club
+          </Text>
           <TextInput label="Name" placeholder="Name"></TextInput>
           <TextInput label="Email Address"></TextInput>
+          <Text mt={12} size={'xl'} weight={600}>
+            Referral Links
+          </Text>
+          <Text mb={8} size={'md'}>
+            Lets us know more about you{' '}
+          </Text>
           {fields}
-          <Button
+          <Button 
+          leftIcon={<Link />}
+            variant="light"
+            mb={8}
             onClick={() =>
               form.insertListItem('links', { link: '', label: '' })
             }
@@ -79,6 +119,13 @@ function EnrollementModal({
             Add a new link
           </Button>
         </form>
+        <Divider my={6} />
+        <Group>
+          <Button>Submit</Button>
+          <Button color="gray" variant="outline">
+            Cancel
+          </Button>
+        </Group>
       </Modal>
     </>
   )

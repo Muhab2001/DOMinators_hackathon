@@ -1,5 +1,9 @@
+import EnrollementModal from '@/components/EnrollementModal'
 import MembersTable from '@/components/MembersTable'
 import { UserRole } from '@/stores/profile'
+import { Button } from '@mantine/core'
+import { useDisclosure } from '@mantine/hooks'
+import { useRouter } from 'next/router'
 const members = [
   {
     id: 1,
@@ -74,9 +78,23 @@ const members = [
 ]
 
 function MembersPage() {
+  const [opened, handlers] = useDisclosure(false)
+  const router = useRouter()
+  const { slug } = router.query
+
   return (
     <>
+      <EnrollementModal
+        visible={opened}
+        onClose={handlers.close}
+        clubName={slug as string}
+      />
       <MembersTable members={members} />
+      <div className="fixed bottom-5 w-full flex justify-center">
+        <Button style={{ width: '200px' }} onClick={handlers.open}>
+          Enroll in Club
+        </Button>
+      </div>
     </>
   )
 }

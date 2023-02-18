@@ -27,7 +27,7 @@ import {
 import { UserRole, useProfile } from '@/stores/profile'
 import { useDisclosure } from '@mantine/hooks'
 import QRPopup from './QRPopup'
-import useSWR from 'swr'
+import useSWRMutate from 'swr'
 import { ActivityClient } from '@/clients/activities'
 
 export enum ActivityStatus {
@@ -82,7 +82,7 @@ const useStyles = createStyles((theme) => ({
   },
 
   progressTrack: {
-    backgroundColor: theme.colors.blue[2],
+    backgroundColor: '#E9E9E9',
     marginTop: '4px !important',
   },
   iconCentring: {
@@ -113,11 +113,15 @@ export function ActivityCard({
     role: state.role,
   }))
   // SWR state management
+
   const {
     data: deleteResponse,
     isLoading: isLoadingDelete,
     error: deleteError,
-  } = useSWR({ key: 'deleteActivity', id: id }, ActivityClient.deleteActivity)
+  } = useSWRMutate(
+    { key: 'deleteActivity', id: id },
+    ActivityClient.deleteActivity
+  )
 
   const statusColor = (status: ActivityStatus) => {
     switch (status) {
@@ -150,7 +154,7 @@ export function ActivityCard({
             <Text color="blue" size="xl" weight={700}>
               {title}
             </Text>
-            <Badge color={statusColor(status)} size="md">
+            <Badge variant="outline" color={statusColor(status)} size="md">
               {status}
             </Badge>
           </Group>
@@ -168,7 +172,8 @@ export function ActivityCard({
         <Card.Section className={classes.section}>
           <Group spacing={7} my={4} align="center">
             <Badge
-              size="xl"
+              color="blue.5"
+              size="lg"
               style={{
                 fontWeight: 500,
                 fontSize: '12',
@@ -176,18 +181,21 @@ export function ActivityCard({
                 textTransform: 'capitalize',
               }}
               py={8}
-              leftSection={<CurrentLocation size={14}></CurrentLocation>}
+              variant="filled"
+              leftSection={<CurrentLocation size={10}></CurrentLocation>}
             >
               <a href={locationURL}>{location}</a>
             </Badge>
             <Badge
-              size="xl"
+              color="blue.5"
+              variant="filled"
+              size="lg"
               style={{
                 fontWeight: 500,
                 fontSize: '10',
                 textTransform: 'capitalize',
               }}
-              leftSection={<CalendarEvent size={14}></CalendarEvent>}
+              leftSection={<CalendarEvent size={10}></CalendarEvent>}
               classNames={{
                 leftSection: classes.iconCentring,
               }}
@@ -195,14 +203,15 @@ export function ActivityCard({
               {date}
             </Badge>
             <Badge
-              variant="light"
-              size="xl"
+              variant="filled"
+              color="blue.5"
+              size="lg"
               style={{
                 fontWeight: 500,
                 fontSize: '10',
                 textTransform: 'capitalize',
               }}
-              leftSection={<ColorSwatch size={14}></ColorSwatch>}
+              leftSection={<ColorSwatch size={10}></ColorSwatch>}
             >
               {category}
             </Badge>

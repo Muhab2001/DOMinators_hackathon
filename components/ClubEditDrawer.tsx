@@ -125,7 +125,7 @@ function ClubEditDrawer({
       >
         <ScrollArea
           style={{
-            height: 'calc(100vh - 50px)',
+            height: 'calc(100vh - 100px)',
             position: 'absolute',
             right: -1,
             zIndex: 100,
@@ -140,12 +140,6 @@ function ClubEditDrawer({
               </ThemeIcon>
               <Text size={'xl'}>Club Identity</Text>
             </Group>
-            <TextInput
-              autoFocus
-              {...form.getInputProps('description')}
-              label="Description"
-              placeholder="Enter Club Description"
-            />
             <FileInput
               label="Logo image"
               icon={<Upload size={16} />}
@@ -189,7 +183,7 @@ function ClubEditDrawer({
                   <RichTextEditor.Underline />
                   <RichTextEditor.Strikethrough />
                   <RichTextEditor.ClearFormatting />
-                  <RichTextEditor.Highlight />
+
                   <RichTextEditor.Code />
                 </RichTextEditor.ControlsGroup>
                 <RichTextEditor.ControlsGroup>
@@ -203,8 +197,6 @@ function ClubEditDrawer({
                   <RichTextEditor.Hr />
                   <RichTextEditor.BulletList />
                   <RichTextEditor.OrderedList />
-                  <RichTextEditor.Subscript />
-                  <RichTextEditor.Superscript />
                 </RichTextEditor.ControlsGroup>
                 <RichTextEditor.ControlsGroup>
                   <RichTextEditor.Link />
