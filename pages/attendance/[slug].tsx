@@ -1,9 +1,9 @@
 import { ActivityClient } from '@/clients/activities'
 import { useProfile } from '@/stores/profile'
-import { Button, Loader, Stack, Text } from '@mantine/core'
+import { Button, Loader, Paper, Skeleton, Stack, Text } from '@mantine/core'
 import { useRouter } from 'next/router'
 import useSWR from 'swr'
-import { Container } from 'tabler-icons-react'
+import { Container, Pepper } from 'tabler-icons-react'
 
 function AttendanceChecking() {
   const router = useRouter()
@@ -22,39 +22,45 @@ function AttendanceChecking() {
   if (error) {
     return (
       <>
-        <Container>
+        <Paper mt={80} style={{ height: 'calc(100vh - 80px' }}>
           <Stack align="center">
-            Oops! there is a problem with the server. Please try again later.
+            Oops! we cannot let you in yet! Make sure you are signed in and
+            registered for this event
           </Stack>
-        </Container>
+        </Paper>
       </>
     )
   }
   if (isLoading) {
     return (
       <>
-        <Container>
-          <Stack align="center">
-            <Loader size={65}></Loader>
-          </Stack>
-        </Container>
+        <Paper mt={80} style={{ height: 'calc(100vh - 80px' }}>
+          <div className="flex justify-center items-center h-full">
+            <Stack align="center">
+              <Loader size={65}></Loader>
+              <Text>Making sure you can pass in!</Text>
+            </Stack>
+          </div>
+        </Paper>
       </>
     )
   }
 
   return (
     <>
-      <Container>
-        <Stack spacing={8} align="center">
-          <Text size={'xl'}>
-            Welcome {user.name}. Please click the button below to confirm your
-            attendance
-          </Text>
-          <Button color="green" size={'lg'} style={{ flex: 1 }}>
-            Confirm Attendance
-          </Button>
-        </Stack>
-      </Container>
+      <Paper mt={80} style={{ height: 'calc(100vh - 80px' }}>
+        <div className="flex justify-center items-center h-full">
+          <Stack spacing={8} align="center">
+            <Text mb={10} size={'xl'}>
+              Welcome <span className="font-bold">{user.name}</span>. Please
+              click the button below to confirm your attendance
+            </Text>
+            <Button py={8} size={'xl'} style={{ flex: 1 }}>
+              <Text weight={400}>Confirm Attendance</Text>
+            </Button>
+          </Stack>
+        </div>
+      </Paper>
     </>
   )
 }

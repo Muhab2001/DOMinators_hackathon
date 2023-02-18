@@ -17,6 +17,7 @@ import { ActivityClient, IActivity } from '@/clients/activities'
 import { stat } from 'fs'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { ClubClient } from '@/clients/clubclient'
 
 function MyTimeline() {
   const { data, isLoading, error } = useSWR(
@@ -112,80 +113,11 @@ interface IClub {
 }
 
 function ClubsList() {
-  const clubs: IClub[] = [
-    {
-      name: 'Computer Club',
-      codename: 'CC',
-      logo: 'https://i.imgur.com/aOU4rub.jpg',
-      memberCount: 40,
-      description: 'KFUPM Computer club',
-      activitiesCount: 10,
-    },
-    {
-      name: 'Computer Club',
-      codename: 'CC',
-      logo: 'https://i.imgur.com/aOU4rub.jpg',
-      memberCount: 40,
-      description: 'KFUPM Computer club',
-      activitiesCount: 10,
-    },
-    {
-      name: 'Computer Club',
-      codename: 'CC',
-      logo: 'https://i.imgur.com/aOU4rub.jpg',
-      memberCount: 40,
-      description: 'KFUPM Computer club',
-      activitiesCount: 10,
-    },
-    {
-      name: 'Computer Club',
-      codename: 'CC',
-      logo: 'https://i.imgur.com/aOU4rub.jpg',
-      memberCount: 40,
-      description: 'KFUPM Computer club',
-      activitiesCount: 10,
-    },
-    {
-      name: 'Computer Club',
-      codename: 'CC',
-      logo: 'https://i.imgur.com/aOU4rub.jpg',
-      memberCount: 40,
-      description: 'KFUPM Computer club',
-      activitiesCount: 10,
-    },
-    {
-      name: 'Computer Club',
-      codename: 'CC',
-      logo: 'https://i.imgur.com/aOU4rub.jpg',
-      memberCount: 40,
-      description: 'KFUPM Computer club',
-      activitiesCount: 10,
-    },
-    {
-      name: 'Computer Club',
-      codename: 'CC',
-      logo: 'https://i.imgur.com/aOU4rub.jpg',
-      memberCount: 40,
-      description: 'KFUPM Computer club',
-      activitiesCount: 10,
-    },
-    {
-      name: 'Computer Club',
-      codename: 'CC',
-      logo: 'https://i.imgur.com/aOU4rub.jpg',
-      memberCount: 40,
-      description: 'KFUPM Computer club',
-      activitiesCount: 10,
-    },
-    {
-      name: 'Computer Club',
-      codename: 'CC',
-      logo: 'https://i.imgur.com/aOU4rub.jpg',
-      memberCount: 40,
-      description: 'KFUPM Computer club',
-      activitiesCount: 10,
-    },
-  ]
+  const {
+    data: clubs,
+    isLoading,
+    error,
+  } = useSWR({ key: 'getAllClubs' }, ClubClient.getAllClubs)
 
   return (
     <>
@@ -197,7 +129,7 @@ function ClubsList() {
 
           <Grid.Col span={10}>
             <Grid className="gap-y-7" justify="space-between">
-              {clubs.map((club) => (
+              {clubs?.map((club) => (
                 <Grid.Col span={4}>
                   <ClubCard
                     name={club.name}

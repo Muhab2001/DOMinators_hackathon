@@ -9,6 +9,7 @@ import {
   ActionIcon,
 } from '@mantine/core'
 import { useForm } from '@mantine/form'
+import { link } from 'fs'
 import { Link, Trash } from 'tabler-icons-react'
 import { z } from 'zod'
 
@@ -71,11 +72,13 @@ function EnrollementModal({
         style={{ flex: 1 }}
         label="Purpose"
         placeholder="Link Purpose"
+        {...form.getInputProps('links.label')[index]}
       ></TextInput>
       <TextInput
         style={{ flex: 1 }}
         label="URL"
         placeholder="Enter the URL"
+        {...form.getInputProps('links.link')[index]}
       ></TextInput>
     </Stack>
   ))
@@ -107,8 +110,8 @@ function EnrollementModal({
             Lets us know more about you{' '}
           </Text>
           {fields}
-          <Button 
-          leftIcon={<Link />}
+          <Button
+            leftIcon={<Link />}
             variant="light"
             mb={8}
             onClick={() =>
