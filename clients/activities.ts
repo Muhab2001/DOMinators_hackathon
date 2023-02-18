@@ -67,7 +67,7 @@ export class ActivityClient {
 
   static async getActivityDetails({
     acitivity_id: number,
-  }): Promise<IActivity> {
+  }): Promise<IActivity & { clubName: string; supervisor: string }> {
     return {
       id: 4,
       title: 'Club Activity 1',
@@ -81,6 +81,8 @@ export class ActivityClient {
       status: ActivityStatus.onGoing,
       category: 'Category 1',
       locationURL: 'https://www.google.com/maps',
+      clubName: 'Computer Science Club',
+      supervisor: 'Ahmed',
     }
   }
 
@@ -180,16 +182,11 @@ export class ActivityClient {
     { args }: Readonly<Record<string, string>>
   ): Promise<void> {}
 
-  static async getInvoice({ id: number, key: string }): Promise<{
-    title: string
-    clubname: string
-    supervisor: string
-    invoices: Invoice[]
-  }> {
+  static async getInvoice({
+    id: number,
+    key: string,
+  }): Promise<{ invoices: Invoice[] }> {
     return {
-      title: '',
-      supervisor: '',
-      clubname: '',
       invoices: [
         {
           amount: 100,
@@ -197,6 +194,20 @@ export class ActivityClient {
           description: 'Invoice 1',
           seller: 'Seller 1',
           id: 1,
+        },
+        {
+          amount: 300,
+          date: '2020-01-02',
+          description: 'Invoice 2',
+          seller: 'Seller 2',
+          id: 2,
+        },
+        {
+          amount: 500,
+          date: '2020-01-04',
+          description: 'Invoice 3',
+          seller: 'Seller 3',
+          id: 3,
         },
       ],
     }

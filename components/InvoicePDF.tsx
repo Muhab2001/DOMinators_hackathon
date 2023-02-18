@@ -117,15 +117,18 @@ const styles = StyleSheet.create({
   },
 })
 
-const InvoicePDF = ({ invoice }) => {
+const InvoicePDF = ({ activityData, invoicesData }) => {
+  const total = invoicesData
+    ?.map((item) => item.amount)
+    .reduce((accumulator, currentValue) => accumulator + currentValue, 0)
   return (
     <Document>
       <Page size="A4" style={styles.page}>
         <Image style={styles.logo} src="/assets/kfupm.png" />
-        <InvoiceTitle title={invoice.title} />
-        <InvoiceNo invoice={invoice} />
-        <BillTo invoice={invoice} />
-        <InvoiceItemsTable invoice={invoice} />
+        <InvoiceTitle title={activityData.title} />
+        <InvoiceNo />
+        <BillTo total={total} activityData={activityData} />
+        <InvoiceItemsTable invoicesData={invoicesData} total={total} />
       </Page>
     </Document>
   )
@@ -137,7 +140,7 @@ const InvoiceTitle = ({ title }) => (
   </View>
 )
 
-const InvoiceNo = ({ invoice }) => (
+const InvoiceNo = () => (
   <>
     <View style={styles.invoiceNoContainer}>
       <Text style={styles.invoiceDate}>
@@ -151,41 +154,39 @@ const InvoiceNo = ({ invoice }) => (
   </>
 )
 
-const BillTo = ({ invoice }) => (
+const BillTo = ({ total, activityData }) => (
   <View style={styles.headerContainer}>
     <Text style={styles.billTo}>Bill To:</Text>
-    <Text>Club: {invoice.club}</Text>
-    <Text>Supervisor: {invoice.supervisor}</Text>
-    <Text>Amount: {invoice.amount} SR</Text>
-    <Text>Justification: {invoice.justification}</Text>
+    <Text>Club: {activityData.clubName}</Text>
+    <Text>Supervisor: {activityData.supervisor}</Text>
+    <Text>Amount: {total} SR</Text>
+    {/* <Text>Justification: {invoicesData.description}</Text> */}
   </View>
 )
 
-const InvoiceItemsTable = ({ invoice }) => (
+const InvoiceItemsTable = ({ invoicesData, total }) => (
   <View style={styles.tableContainer}>
     <InvoiceTableHeader />
-    <InvoiceTableRow items={invoice.items} />
-    <InvoiceTableBlankSpace rowsCount={tableRowsCount - invoice.items.length} />
-    <InvoiceTableFooter items={invoice.items} />
+    <InvoiceTableRow items={invoicesData} />
+    <InvoiceTableBlankSpace rowsCount={tableRowsCount - invoicesData.length} />
+    <InvoiceTableFooter total={total} />
   </View>
 )
 
 const InvoiceTableHeader = () => (
   <View style={styles.container}>
     <Text style={styles.description}>Item Description</Text>
-    <Text style={styles.qty}>Qty</Text>
-    <Text style={styles.rate}>@</Text>
     <Text style={styles.amount}>Amount</Text>
   </View>
 )
 
 const InvoiceTableRow = ({ items }) => {
+  // console.log('in row')
+  // console.log(items)
   const rows = items.map((item) => (
-    <View style={styles.row} key={item.sno.toString()}>
-      <Text style={styles.description}>{item.desc}</Text>
-      <Text style={styles.qty}>{item.qty}</Text>
-      <Text style={styles.rate}>{item.rate}</Text>
-      <Text style={styles.amount}>{(item.qty * item.rate).toFixed(2)}</Text>
+    <View style={styles.row} key={item.id}>
+      <Text style={styles.description}>{item.description}</Text>
+      <Text style={styles.amount}>{item.amount}</Text>
     </View>
   ))
   return <>{rows}</>
@@ -204,14 +205,11 @@ const InvoiceTableBlankSpace = ({ rowsCount }) => {
   return <>{rows}</>
 }
 
-const InvoiceTableFooter = ({ items }) => {
-  const total = items
-    .map((item) => item.qty * item.rate)
-    .reduce((accumulator, currentValue) => accumulator + currentValue, 0)
+const InvoiceTableFooter = ({ total }) => {
   return (
     <View style={styles.row}>
       <Text style={styles.description}>TOTAL</Text>
-      <Text style={styles.total}>{Number.parseFloat(total).toFixed(2)}</Text>
+      <Text style={styles.total}>{Number.parseFloat(total)}</Text>
     </View>
   )
 }

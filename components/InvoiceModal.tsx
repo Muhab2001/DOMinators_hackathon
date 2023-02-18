@@ -15,6 +15,7 @@ import { FileInvoice, Link, LogicAnd, Printer, Trash } from 'tabler-icons-react'
 import { z } from 'zod'
 import useSWRMutation from 'swr/mutation'
 
+import InvoiceDownloadButton from './InvoiceDownloadButton'
 interface InvoiceModalProps {
   visible: boolean
   onClose: () => void
@@ -41,6 +42,17 @@ function InvoiceModal({ visible, onClose, activity_id }: InvoiceModalProps) {
       id: activity_id,
     },
     ActivityClient.getInvoice
+  )
+  const {
+    data: activityData,
+    error: activityError,
+    isLoading: activityLoading,
+  } = useSWR(
+    {
+      key: 'fetch_activity_details',
+      id: activity_id,
+    },
+    ActivityClient.getActivityDetails
   )
 
   const { trigger } = useSWRMutation(
@@ -89,11 +101,11 @@ function InvoiceModal({ visible, onClose, activity_id }: InvoiceModalProps) {
         </Group>
         <TextInput
           label="Seller"
-          {...form.getInputProps('invoices.seller')[index]}
+          {...form.getInputProps(`invoices.${index}.seller`)}
         />
         <TextInput
           label="Description"
-          {...form.getInputProps('invoices.description')[index]}
+          {...form.getInputProps(`invoices.${index}.description`)}
         />
         <NumberInput
           label="Amount"
@@ -101,7 +113,7 @@ function InvoiceModal({ visible, onClose, activity_id }: InvoiceModalProps) {
         />
         <NumberInput
           label="Invoice number"
-          {...form.getInputProps('invoices.id')[index]}
+          {...form.getInputProps(`invoices.${index}.id`)}
         />
       </Stack>
     )
@@ -136,7 +148,7 @@ function InvoiceModal({ visible, onClose, activity_id }: InvoiceModalProps) {
             Add a new invoice
           </Button>
         </form>
-        <Button
+        {/* <Button
           onClick={() => {
             // triggering pdf report printing
             console.log(form.values)
@@ -145,7 +157,9 @@ function InvoiceModal({ visible, onClose, activity_id }: InvoiceModalProps) {
           style={{ flex: 1, width: '100%' }}
         >
           Print Invoice
-        </Button>
+        </Button> */}
+        <InvoiceDownloadButton activityData={activityData} invoicesData={data?.invoices} />
+
         <Divider my={6} />
         <Group>
           <Button onClick={() => trigger(form.values.invoices)}>Save</Button>

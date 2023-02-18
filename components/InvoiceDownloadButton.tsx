@@ -5,14 +5,17 @@ const InvoiceDownload = dynamic(() => import('./InvoiceDownload'), {
   ssr: false,
 })
 
-const InvoiceDownloadButton = ( {invoiceData} ) => {
+const InvoiceDownloadButton = ({ activityData, invoicesData }) => {
   const [client, setClient] = useState(false)
 
   useEffect(() => {
     setClient(true)
+    // console.log('in download ')
+
+    // console.log(invoicesData)
   }, [])
 
-  return <InvoiceDownload invoiceData = {invoiceData}/>
+  return <InvoiceDownload invoicesData={invoicesData} activityData={activityData} />
 }
 
 export default InvoiceDownloadButton
