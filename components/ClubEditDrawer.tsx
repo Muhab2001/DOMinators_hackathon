@@ -206,7 +206,9 @@ function ClubEditDrawer({
               <RichTextEditor.Content />
             </RichTextEditor>
             <Group spacing={8}>
-              <Button color="blue">Submit</Button>
+              <Button onClick={() => {
+                
+              }} color="blue">Submit</Button>
               <Button color="grey">Cancel</Button>
             </Group>
           </form>

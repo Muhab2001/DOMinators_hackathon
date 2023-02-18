@@ -1,13 +1,12 @@
+// import { UserRole } from '@/stores/profile'
 
-class IMember {
+// class IMember {
+//   username: string
+//   avatar: string
+//   email: string
+//   role: UserRole
+// }
 
-  
-}
-
-
-class Members {
-
-
-
-  async getClubMembers(clubId: number): Promise<Member[]> {}
-}
+// class Members {
+//   async getClubMembers(clubId: number): Promise<Member[]> {}
+// }

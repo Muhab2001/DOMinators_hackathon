@@ -26,6 +26,7 @@ import {
 } from 'tabler-icons-react'
 import ClubEditDrawer from './ClubEditDrawer'
 import Link from 'next/link'
+import { useClub } from '@/stores/club'
 
 interface ActivityHeaderProps {
   codename: string
@@ -36,8 +37,12 @@ function ActivityHeader({ codename }: ActivityHeaderProps) {
     { clubId: codename },
     ClubClient.getClubProfile
   )
-
+  const clubProfile = useClub()
   const [opened, handlers] = useDisclosure(false)
+
+  if (data) {
+    
+  }
 
   return (
     <>
