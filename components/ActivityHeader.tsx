@@ -15,6 +15,7 @@ import { useDisclosure } from '@mantine/hooks'
 import useSWR from 'swr'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
+import parse from 'html-react-parser'
 
 import {
   Adjustments,
@@ -27,6 +28,7 @@ import {
 import ClubEditDrawer from './ClubEditDrawer'
 import Link from 'next/link'
 import { useClub } from '@/stores/club'
+import { useEffect } from 'react'
 
 interface ActivityHeaderProps {
   codename: string
@@ -37,12 +39,24 @@ function ActivityHeader({ codename }: ActivityHeaderProps) {
     { clubId: codename },
     ClubClient.getClubProfile
   )
-  const clubProfile = useClub()
+  const clubProfile = useClub((state) => state)
   const [opened, handlers] = useDisclosure(false)
 
-  if (data) {
-    
-  }
+  useEffect(() => {
+    if (data) {
+      clubProfile.switchClub(
+        data.id,
+        data.clubName,
+        data.description,
+        data.logoImg,
+        data.headerImg,
+        data.colorAccent,
+        data.socialMediaLinks.facebook,
+        data.socialMediaLinks.twitter,
+        data.socialMediaLinks.instagram
+      )
+    }
+  }, [data])
 
   return (
     <>
@@ -56,7 +70,7 @@ function ActivityHeader({ codename }: ActivityHeaderProps) {
         {isLoading ? (
           <Skeleton />
         ) : (
-          <Image height={350} src={data?.headerImg} />
+          <Image height={350} src={clubProfile.header} />
         )}
         {isLoading ? (
           <Stack spacing={0}>
@@ -72,7 +86,7 @@ function ActivityHeader({ codename }: ActivityHeaderProps) {
           <div className="relative top-[-48px]">
             <Group px={16} pr={22} align="flex-end" ml={16} spacing={16}>
               <Avatar
-                src={data?.logoImg}
+                src={clubProfile.logo}
                 className="border-solid border-white border-4"
                 radius={75}
                 size={150}
@@ -83,7 +97,7 @@ function ActivityHeader({ codename }: ActivityHeaderProps) {
                 position="apart"
               >
                 <Text mt={5} size={35} weight={700}>
-                  {data?.clubName}
+                  {clubProfile.name}
                 </Text>
                 <Group spacing={8}>
                   {/* TODO only show for presidents and admins */}
@@ -117,10 +131,7 @@ function ActivityHeader({ codename }: ActivityHeaderProps) {
               mt={12}
             >
               {data?.description ? (
-                <ReactMarkdown
-                  children={data?.description}
-                  remarkPlugins={[remarkGfm]}
-                />
+                <div>{parse(clubProfile.description)}</div>
               ) : (
                 <Stack spacing={5}>
                   <Skeleton height={8} />
@@ -139,18 +150,18 @@ function ActivityHeader({ codename }: ActivityHeaderProps) {
         )}
 
         <Group px={73} pb={16} spacing={5}>
-          {data?.socialMediaLinks['twitter'] && (
-            <a target="_blank" href={data.socialMediaLinks['twitter']}>
+          {clubProfile.twitter && (
+            <a target="_blank" href={clubProfile.twitter}>
               <BrandTwitter color="#00bfd8" size={25} />
             </a>
           )}
-          {data?.socialMediaLinks['facebook'] && (
-            <a target="_blank" href={data.socialMediaLinks['facebook']}>
+          {clubProfile.facebook && (
+            <a target="_blank" href={clubProfile.facebook}>
               <BrandFacebook color="#00abfb" size={25} />
             </a>
           )}
-          {data?.socialMediaLinks['instagram'] && (
-            <a target="_blank" href={data.socialMediaLinks['instagram']}>
+          {clubProfile.instagram && (
+            <a target="_blank" href={clubProfile.instagram}>
               <BrandInstagram color="#fd0061" size={25} />
             </a>
           )}

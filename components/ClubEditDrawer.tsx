@@ -19,6 +19,7 @@ import { useState } from 'react'
 import { Id, Social, Upload } from 'tabler-icons-react'
 import { useForm, zodResolver } from '@mantine/form'
 import { z } from 'zod'
+import { useClub } from '@/stores/club'
 
 interface ClubEditDrawerProps {
   visible: boolean
@@ -85,19 +86,20 @@ function ClubEditDrawer({
     extensions: [StarterKit, Underline, Link],
     content: description,
     onUpdate: ({ editor }) => {
-      form.setFieldValue('description', editor.getText())
+      form.setFieldValue('description', editor.getHTML())
     },
   })
+  const clubProfile = useClub((state) => state)
 
   const form = useForm({
     initialValues: {
-      description: description,
+      description: clubProfile.description,
       logo: null,
       header: null,
-      accentColor: accentColor,
-      facebook: '',
-      twitter: '',
-      instagram: '',
+      accentColor: clubProfile.accentColor,
+      facebook: clubProfile.facebook,
+      twitter: clubProfile.twitter,
+      instagram: clubProfile.instagram,
     },
     validate: zodResolver(schema),
   })
@@ -206,9 +208,24 @@ function ClubEditDrawer({
               <RichTextEditor.Content />
             </RichTextEditor>
             <Group spacing={8}>
-              <Button onClick={() => {
-                
-              }} color="blue">Submit</Button>
+              <Button
+                onClick={() => {
+                  clubProfile.switchClub(
+                    clubProfile.codename,
+                    clubProfile.name,
+                    form.values.description,
+                    clubProfile.logo,
+                    clubProfile.header,
+                    form.values.accentColor,
+                    clubProfile.facebook,
+                    clubProfile.twitter,
+                    clubProfile.instagram
+                  )
+                }}
+                color="blue"
+              >
+                Submit
+              </Button>
               <Button color="grey">Cancel</Button>
             </Group>
           </form>

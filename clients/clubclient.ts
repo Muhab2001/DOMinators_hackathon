@@ -8,6 +8,7 @@ interface ClubProfile {
   clubName: string
   membersCount: number
   colorAccent: string // hex code
+  id: string
 }
 
 export class ClubClient {
@@ -19,6 +20,7 @@ export class ClubClient {
     console.log('Data on club', data)
 
     return {
+      id: data.id,
       headerImg: data.header_image,
       logoImg: data.logo,
       description: data.description,
