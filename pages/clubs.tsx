@@ -120,6 +120,48 @@ function ClubsList() {
     error,
   } = useSWR({ key: 'getAllClubs' }, ClubClient.getAllClubs)
 
+  const clubsList = [
+    clubs?.map((club, index) => (
+      <Grid.Col span={4}>
+        <ClubCard
+          name={club.name}
+          codename={club.codename}
+          logo={club.logo}
+          memberCount={club.memberCount}
+          description={club.description}
+          activitiesCount={club.activitiesCount}
+          aosDelay={index * 100}
+        />
+      </Grid.Col>
+    )),
+    clubs?.map((club, index) => (
+      <Grid.Col span={4}>
+        <ClubCard
+          name={club.name}
+          codename={club.codename}
+          logo={club.logo}
+          memberCount={club.memberCount}
+          description={club.description}
+          activitiesCount={club.activitiesCount}
+          aosDelay={index * 100}
+        />
+      </Grid.Col>
+    )),
+    clubs?.map((club, index) => (
+      <Grid.Col span={4}>
+        <ClubCard
+          name={club.name}
+          codename={club.codename}
+          logo={club.logo}
+          memberCount={club.memberCount}
+          description={club.description}
+          activitiesCount={club.activitiesCount}
+          aosDelay={index * 100}
+        />
+      </Grid.Col>
+    )),
+  ]
+
   return (
     <>
       <div className="w-full h-full mt-24 overflow-hidden">
@@ -130,19 +172,7 @@ function ClubsList() {
 
           <Grid.Col span={10}>
             <Grid className="gap-y-7" justify="flex-start">
-              {clubs?.map((club, index) => (
-                <Grid.Col span={4}>
-                  <ClubCard
-                    name={club.name}
-                    codename={club.codename}
-                    logo={club.logo}
-                    memberCount={club.memberCount}
-                    description={club.description}
-                    activitiesCount={club.activitiesCount}
-                    aosDelay={index * 100}
-                  />
-                </Grid.Col>
-              ))}
+              {clubsList}
             </Grid>
           </Grid.Col>
 

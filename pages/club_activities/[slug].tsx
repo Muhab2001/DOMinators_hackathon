@@ -30,10 +30,13 @@ function ClubActivities() {
 
   const [invoiceOpened, invoiceHandlers] = useDisclosure(false)
   const [createActivityOpened, createActivityHandlers] = useDisclosure(false)
-  const [invoiceActivity, setInvoiceActivity] = useState<number | string>(0)
+  const [invoiceActivity, setInvoiceActivity] = useState({
+    name: '',
+    activityId: 0,
+  })
 
-  function openInvoiceModal(activity_id: number | string) {
-    setInvoiceActivity(activity_id)
+  function openInvoiceModal(activity_id: number, name: string) {
+    setInvoiceActivity({ activityId: activity_id, name: name })
     invoiceHandlers.open()
   }
 
@@ -45,7 +48,8 @@ function ClubActivities() {
   return (
     <>
       <InvoiceModal
-        activity_id={invoiceActivity}
+        activity_id={invoiceActivity.activityId}
+        activity_name={invoiceActivity.name}
         visible={invoiceOpened}
         onClose={invoiceHandlers.close}
       />

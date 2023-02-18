@@ -43,8 +43,8 @@ export class ActivityClient {
         status: ActivityStatus.onGoing,
         category: 'Category 1',
         locationURL: 'https://www.google.com/maps',
-        clubname: 'a club name',
-        supervisor: 'string',
+        clubname: 'Computer Club',
+        supervisor: 'Muhab',
       },
       {
         id: 2,

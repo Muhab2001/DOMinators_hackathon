@@ -20,6 +20,7 @@ interface InvoiceModalProps {
   visible: boolean
   onClose: () => void
   activity_id: string | number
+  activity_name: string
 }
 
 const schema = z.object({
@@ -35,7 +36,12 @@ const schema = z.object({
     .min(1),
 })
 
-function InvoiceModal({ visible, onClose, activity_id }: InvoiceModalProps) {
+function InvoiceModal({
+  visible,
+  onClose,
+  activity_id,
+  activity_name,
+}: InvoiceModalProps) {
   const { data, error, isLoading } = useSWR(
     {
       key: 'fetch_existing_invoice',
@@ -158,7 +164,10 @@ function InvoiceModal({ visible, onClose, activity_id }: InvoiceModalProps) {
         >
           Print Invoice
         </Button> */}
-        <InvoiceDownloadButton activityData={activityData} invoicesData={data?.invoices} />
+        <InvoiceDownloadButton
+          activityData={{ ...activityData, title: activity_name }}
+          invoicesData={form.values.invoices}
+        />
 
         <Divider my={6} />
         <Group>

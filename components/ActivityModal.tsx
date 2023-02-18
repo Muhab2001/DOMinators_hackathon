@@ -181,6 +181,7 @@ function ActivityCreateModal({
             accept="image/png,image/jpeg"
             error={form.errors.imageFile}
           />
+          
           <Group position="right" mt="lg">
             <Button color="red" onClick={closeModal}>
               Cancel

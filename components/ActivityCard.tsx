@@ -50,7 +50,7 @@ interface IActivityCardProps {
   category: string
   location: string
   locationURL: string
-  openInvoiceModal: (activity_id: number | string) => void
+  openInvoiceModal: (activity_id: number, name: string) => void
 }
 
 const useStyles = createStyles((theme) => ({
@@ -269,7 +269,7 @@ export function ActivityCard({
                     Cancel
                   </Button>
                   <Button
-                    onClick={() => openInvoiceModal(id)}
+                    onClick={() => openInvoiceModal(id, title)}
                     leftIcon={<FileInvoice size={16} />}
                     color="blue.6"
                     style={{ flex: 1, width: '100%' }}
