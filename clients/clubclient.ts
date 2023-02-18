@@ -11,8 +11,12 @@ interface ClubProfile {
 }
 
 export class ClubClient {
-  static async getClubProfile({ clubId: string }): Promise<ClubProfile> {
-    console.log('Hello world')
+  static async getClubProfile({ clubId }): Promise<ClubProfile> {
+    const data = (
+      await axios.get(`http://localhost:8000/api/clubs/${clubId}/?format=json`)
+    ).data
+
+    console.log('Data on club', data)
 
     return {
       headerImg:
@@ -32,80 +36,18 @@ export class ClubClient {
   }
 
   static async getAllClubs(key: string) {
-    return [
-      {
-        name: 'Computer Club',
-        codename: 'CC',
-        logo: 'https://i.imgur.com/aOU4rub.jpg',
-        memberCount: 40,
-        description: 'KFUPM Computer club',
-        activitiesCount: 10,
-      },
-      {
-        name: 'Computer Club',
-        codename: 'CC',
-        logo: 'https://i.imgur.com/aOU4rub.jpg',
-        memberCount: 40,
-        description: 'KFUPM Computer club',
-        activitiesCount: 10,
-      },
-      {
-        name: 'Computer Club',
-        codename: 'CC',
-        logo: 'https://i.imgur.com/aOU4rub.jpg',
-        memberCount: 40,
-        description: 'KFUPM Computer club',
-        activitiesCount: 10,
-      },
-      {
-        name: 'Computer Club',
-        codename: 'CC',
-        logo: 'https://i.imgur.com/aOU4rub.jpg',
-        memberCount: 40,
-        description: 'KFUPM Computer club',
-        activitiesCount: 10,
-      },
-      {
-        name: 'Computer Club',
-        codename: 'CC',
-        logo: 'https://i.imgur.com/aOU4rub.jpg',
-        memberCount: 40,
-        description: 'KFUPM Computer club',
-        activitiesCount: 10,
-      },
-      {
-        name: 'Computer Club',
-        codename: 'CC',
-        logo: 'https://i.imgur.com/aOU4rub.jpg',
-        memberCount: 40,
-        description: 'KFUPM Computer club',
-        activitiesCount: 10,
-      },
-      {
-        name: 'Computer Club',
-        codename: 'CC',
-        logo: 'https://i.imgur.com/aOU4rub.jpg',
-        memberCount: 40,
-        description: 'KFUPM Computer club',
-        activitiesCount: 10,
-      },
-      {
-        name: 'Computer Club',
-        codename: 'CC',
-        logo: 'https://i.imgur.com/aOU4rub.jpg',
-        memberCount: 40,
-        description: 'KFUPM Computer club',
-        activitiesCount: 10,
-      },
-      {
-        name: 'Computer Club',
-        codename: 'CC',
-        logo: 'https://i.imgur.com/aOU4rub.jpg',
-        memberCount: 40,
-        description: 'KFUPM Computer club',
-        activitiesCount: 10,
-      },
-    ]
+    const data = (await axios.get('http://localhost:8000/api/clubs/')).data
+
+    const cleaned = data.map((obj) => ({
+      name: obj.name,
+      codename: obj.id,
+      logo: obj.logo,
+      memberCount: obj.member_count,
+      description: obj.description,
+      activitiesCount: obj.activity_count,
+    }))
+
+    return cleaned
   }
 
   static async updateClubProfile(

@@ -28,14 +28,19 @@ interface ClubCardProps {
   description: string
   activitiesCount: number
   className?: string
+  aosDelay?: number
 }
 
-function ClubCard(props, { className }: ClubCardProps) {
+function ClubCard(props, { className, aosDelay }: ClubCardProps) {
   const classes = useStyles()
 
   return (
     <>
-      <Link href={'club_activities/' + props.codename}>
+      <Link
+        data-aos="fade-in"
+        data-aos-delay={aosDelay}
+        href={'club_activities/' + props.codename}
+      >
         <Card withBorder radius="md" classNames={className}>
           {/* section for the logo, title, and short description */}
           <Card.Section p="xl" withBorder>
