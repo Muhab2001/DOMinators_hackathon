@@ -11,6 +11,7 @@ import {
 } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import useSWR from 'swr'
+
 import { BrandFacebook, BrandInstagram, BrandTwitter } from 'tabler-icons-react'
 import ClubEditDrawer from './ClubEditDrawer'
 
@@ -63,6 +64,7 @@ function ActivityHeader({ codename }: ActivityHeaderProps) {
                 {data?.clubName}
               </Text>
             </Group>
+
             <Spoiler
               px={74}
               showLabel="Show more"

@@ -29,6 +29,7 @@ function ClubActivities() {
       {/* <AppNavbar /> */}
       <Container size={1096} mb={22}>
         <ActivityHeader codename={slug as string} />
+        <Caruousel />
         <SimpleGrid
           breakpoints={[
             {
@@ -54,7 +55,6 @@ function ClubActivities() {
             activities
           )}
         </SimpleGrid>
-        <Caruousel />
       </Container>
      
     </>

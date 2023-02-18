@@ -8,7 +8,7 @@ export default class _Document extends Document {
 
   render() {
     return (
-      <Html>
+      <Html className="overscroll-none">
         <Head />
         <body className="bg-[#f4f7fa]">
           <Main />
