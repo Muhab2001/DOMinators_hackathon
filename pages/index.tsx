@@ -278,6 +278,7 @@ export default function Home() {
     <section className=" bg-white absolute inset-0 flex flex-col justify-center items-center  overflow-hidden z-50">
       <div className="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 lg:px-12">
         <a
+          data-aos="fade-in"
           href="#"
           className="inline-flex justify-between items-center py-1 px-1 pr-4 mb-7 text-sm text-gray-700 bg-gray-100 rounded-full dark:bg-gray-800 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700"
           role="alert"
@@ -299,15 +300,22 @@ export default function Home() {
             ></path>
           </svg>
         </a>
-        <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+        <h1
+          data-aos="zoom-in"
+          className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white"
+        >
           We invest in the club's potential
         </h1>
-        <p className="mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">
+        <p
+          data-aos="fade-in"
+          className="mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400"
+        >
           KFUPM Clubs is a platform that aims to help clubs in KFUPM to grow and
           develop their potential the fullest.
         </p>
         <div className="flex flex-col mb-8 lg:mb-16 space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
           <a
+            data-aos="fade-right"
             href="/clubs"
             className="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900"
           >
@@ -326,6 +334,7 @@ export default function Home() {
             </svg>
           </a>
           <a
+            data-aos="fade-in"
             href="#"
             className="inline-flex justify-center gap-1 items-center py-3 px-5 text-base font-medium text-center text-gray-900 rounded-lg border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
           >
@@ -334,10 +343,16 @@ export default function Home() {
           </a>
         </div>
         <div className="px-4 mx-auto text-center md:max-w-screen-md lg:max-w-screen-lg lg:px-36">
-          <span className="font-semibold text-gray-400 uppercase">
+          <span
+            data-aos="fade-in"
+            className="font-semibold text-gray-400 uppercase"
+          >
             Built with
           </span>
-          <div className="flex flex-wrap justify-center items-center mt-8 text-gray-500 sm:justify-between">
+          <div
+            data-aos="fade-up"
+            className="flex flex-wrap justify-center items-center mt-8 text-gray-500 sm:justify-between"
+          >
             <div className="gap-5 flex flex-row justify-center items-center hover:text-gray-800 group dark:hover:text-gray-400 cursor-pointer">
               <svg
                 xmlns="http://www.w3.org/2000/svg"

@@ -57,9 +57,10 @@ function MyTimeline() {
   }
 
   const timelineItems = data?.map(
-    (activity: IActivity & { clubName: string; codename: string }) => {
+    (activity: IActivity & { clubName: string; codename: string }, index) => {
       return (
         <Timeline.Item
+          data-aos="fade-in"
           style={{ cursor: 'pointer' }}
           title={activity.clubName}
           bullet={
@@ -71,7 +72,7 @@ function MyTimeline() {
             router.push('/club_activities/' + activity.codename)
           }}
         >
-          <Stack spacing={0}>
+          <Stack spacing={0} data-aos="fade-in" data-aos-delay={index * 100}>
             <Text color="blue.4" weight={900}>
               {activity.title}
             </Text>
@@ -129,7 +130,7 @@ function ClubsList() {
 
           <Grid.Col span={10}>
             <Grid className="gap-y-7" justify="space-between">
-              {clubs?.map((club) => (
+              {clubs?.map((club, index) => (
                 <Grid.Col span={4}>
                   <ClubCard
                     name={club.name}
@@ -138,6 +139,7 @@ function ClubsList() {
                     memberCount={club.memberCount}
                     description={club.description}
                     activitiesCount={club.activitiesCount}
+                    aosDelay={index * 100}
                   />
                 </Grid.Col>
               ))}

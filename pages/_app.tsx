@@ -12,7 +12,10 @@ import {
 import { Settings } from 'tabler-icons-react'
 import { useTodoStore } from '@/stores/bears'
 import AppHeader from '@/components/AppHeader'
-import '../styles/bruh.css' 
+import '../styles/bruh.css'
+import AOS from 'aos'
+import 'aos/dist/aos.css'
+import { useEffect } from 'react'
 
 const useStyles = createStyles((theme) => ({
   cuteText: {
@@ -24,7 +27,12 @@ const useStyles = createStyles((theme) => ({
 
 export default function App({ Component, pageProps }: AppProps) {
   const { classes } = useStyles()
-
+  useEffect(() => {
+    try {
+      AOS.init()
+      AOS.refresh()
+    } catch (error) {}
+  })
   return (
     <MantineProvider
       withGlobalStyles
