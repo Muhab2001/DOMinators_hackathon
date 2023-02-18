@@ -1,12 +1,15 @@
 import { ActivityClient } from '@/clients/activities'
 import { ActivityCard } from '@/components/ActivityCard'
 import ActivityHeader from '@/components/ActivityHeader'
+import ClubEditDrawer from '@/components/ClubEditDrawer'
 import { AppNavbar } from '@/components/Navbar'
 import { useClub } from '@/stores/club'
 import { Container, SimpleGrid, Skeleton } from '@mantine/core'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import useSWR from 'swr'
+
+
 function ClubActivities() {
   const router = useRouter()
   const { slug } = router.query
@@ -51,6 +54,7 @@ function ClubActivities() {
           )}
         </SimpleGrid>
       </Container>
+     
     </>
   )
 }

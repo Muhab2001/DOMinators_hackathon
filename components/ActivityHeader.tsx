@@ -9,8 +9,10 @@ import {
   Stack,
   Spoiler,
 } from '@mantine/core'
+import { useDisclosure } from '@mantine/hooks'
 import useSWR from 'swr'
 import { BrandFacebook, BrandInstagram, BrandTwitter } from 'tabler-icons-react'
+import ClubEditDrawer from './ClubEditDrawer'
 
 interface ActivityHeaderProps {
   codename: string
@@ -22,8 +24,16 @@ function ActivityHeader({ codename }: ActivityHeaderProps) {
     ClubClient.getClubProfile
   )
 
+  const [opened, handlers] = useDisclosure(false)
+
   return (
     <>
+      <ClubEditDrawer
+        description={data ? data.description : ''}
+        accentColor={data ? data.colorAccent : ''}
+        visible={opened}
+        onClose={handlers.close}
+      />
       <Card withBorder mb={16} px={0} mt={100}>
         {isLoading ? (
           <Skeleton />

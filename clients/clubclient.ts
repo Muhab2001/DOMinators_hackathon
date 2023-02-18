@@ -35,5 +35,30 @@ export class ClubClient {
     }
   }
 
-  // static async getAllClubs(clubId: string): Promise<ShortenedClubProfile> {}
+  static async getAllClubs(clubId: string): Promise<ShortenedClubProfile[]> {
+    return [
+      {
+        logoImg:
+          'https://images.unsplash.com/photo-1545231027-637d2f6210f8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8bG9nb3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60',
+        shortDescription: 'This is our club description mate epsum lorem',
+        clubName: 'Computer Club',
+        codename: 'CC',
+      },
+      {
+        logoImg:
+          'https://images.unsplash.com/photo-1545231027-637d2f6210f8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8bG9nb3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60',
+        shortDescription:
+          'In ut consequat nostrud commodo do nulla eu id eu in proident. Laborum mollit ipsum elit reprehenderit consequat esse cillum anim nostrud sit enim laborum nostrud. Enim ipsum nisi magna adipisicing ea quis deserunt proident consequat. Dolor dolore deserunt irure veniam. Anim fugiat eiusmod consectetur aute officia irure nostrud deserunt deserunt. Occaecat occaecat duis aliqua magna enim quis qui non pariatur non sint ex fugiat magna. Mollit irure qui eu excepteur irure sit cillum magna aliquip adipisicing.',
+        clubName: 'Physics Club',
+        codename: 'PC',
+      },
+    ]
+  }
+
+  static async updateClubProfile(
+    logoImage?: File,
+    headerImage?: File,
+    description?: string,
+    socialMediaLinks?: Record<string, string>
+  ): Promise<void> {}
 }
