@@ -73,12 +73,8 @@
 //   },
 // ]
 
-// function Members() {
-export default //   return (
-//     <>
-//       <MembersTable members={members} />
-//     </>
-//   )
-// }
+function Members() {
+  return <></>
+}
 
-// export default Members
+export default Members

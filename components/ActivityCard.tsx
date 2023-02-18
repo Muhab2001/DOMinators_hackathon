@@ -125,10 +125,10 @@ export function ActivityCard({
             <Badge size="md">{status}</Badge>
           </Group>
 
-          <Spoiler hideLabel="Hide" showLabel="Show more" maxHeight={40}>
-            <Text size="sm">{description}</Text>
-          </Spoiler>
-        </Card.Section>
+        <Spoiler mih={80} hideLabel="Hide" showLabel="Show more" maxHeight={40}>
+          <Text size="sm">{description}</Text>
+        </Spoiler>
+      </Card.Section>
 
         <Card.Section className={classes.section}>
           <Group spacing={7} my={4} align="center">
