@@ -121,6 +121,7 @@ const InvoicePDF = ({ activityData, invoicesData }) => {
   const total = invoicesData
     ?.map((item) => item.amount)
     .reduce((accumulator, currentValue) => accumulator + currentValue, 0)
+
   return (
     <Document>
       <Page size="A4" style={styles.page}>
