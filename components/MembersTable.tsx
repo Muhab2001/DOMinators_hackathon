@@ -1,7 +1,12 @@
-import { Grid, createStyles } from '@mantine/core'
+import { Grid, createStyles, Group, Tooltip, ActionIcon } from '@mantine/core'
 
-import { BrandTwitter, BrandFacebook, BrandLinkedin } from 'tabler-icons-react'
-import { AppNavbar } from './Navbar'
+import {
+  BrandTwitter,
+  BrandFacebook,
+  BrandLinkedin,
+  Trash,
+  Pencil
+} from 'tabler-icons-react'
 interface MembersTableProps {
   members: UserProfile[]
 }
@@ -51,74 +56,61 @@ function MembersTable({ members }: MembersTableProps) {
   const classes = useStyles()
   return (
     <Grid ml={300} mr={300} columns={4}>
-      <AppNavbar />
-      {members.map((member) =>
-        member.role == 'club_president' ? (
-          <>
-            <Grid.Col span={4}>
-              <div
-                className="our-team"
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-              >
-                <img
-                  src="https://hips.hearstapps.com/hmg-prod/images/barack-obama-12782369-1-402.jpg?crop=1xw:0.75xh;center,top&resize=1200:*"
-                  alt="Member avatar"
-                  style={{
-                    width: '150px',
-                    height: '150px',
-                    borderRadius: '60%',
-                  }}
-                  className="pic"
-                ></img>
-                <h3 className="title">{member.name}</h3>
-                <span className="post"> {member.role}</span>
-                <ul className="social">
-                  <BrandTwitter />
-                  <BrandLinkedin />
-                  <BrandFacebook />
-                </ul>
-              </div>
-            </Grid.Col>
-          </>
-        ) : (
-          <>
-            <Grid.Col span={2}>
-              <div
-                className="our-team"
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-              >
-                <img
-                  src="https://hips.hearstapps.com/hmg-prod/images/barack-obama-12782369-1-402.jpg?crop=1xw:0.75xh;center,top&resize=1200:*"
-                  alt="Member avatar"
-                  style={{
-                    width: '150px',
-                    height: '150px',
-                    borderRadius: '60%',
-                  }}
-                  className="pic"
-                ></img>
-                <h3 className="title">{member.name}</h3>
-                <span className="post"> {member.role}</span>
-                <ul className="social">
-                  <BrandTwitter />
-                  <BrandLinkedin />
-                  <BrandFacebook />
-                </ul>
-              </div>
-            </Grid.Col>
-          </>
-        )
-      )}
+      {members.map((member) => (
+        member.role == 'club_president' ? <>
+        <Grid.Col span={4} >
+          <div className='our-team' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+
+            <img
+              src="https://hips.hearstapps.com/hmg-prod/images/barack-obama-12782369-1-402.jpg?crop=1xw:0.75xh;center,top&resize=1200:*"
+              alt="Member avatar"
+              style={{ width: '150px', height: '150px', borderRadius: '60%' }}
+              className="pic"
+            >
+            </img>
+            <h3 className="title">{member.name}</h3>
+            <span className="post"> {member.role}</span>
+            <ul className="social">
+              <BrandTwitter />
+              <BrandLinkedin />
+              <BrandFacebook />
+            </ul>
+          </div>
+
+        </Grid.Col>
+        </> : <>
+        <Grid.Col span={2}>
+          <div className='our-team' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+            <img
+              src="https://hips.hearstapps.com/hmg-prod/images/barack-obama-12782369-1-402.jpg?crop=1xw:0.75xh;center,top&resize=1200:*"
+              alt="Member avatar"
+              style={{ width: '150px', height: '150px', borderRadius: '60%' }}
+              className="pic"
+            >
+            </img>
+            <h3 className="title">{member.name}</h3>
+            <span className="post"> {member.role}</span>
+            <ul className="social">
+              <BrandTwitter />
+              <BrandLinkedin />
+              <BrandFacebook />
+            </ul>
+            <Group spacing={3}>
+            <Tooltip label="Kick Member" withArrow>
+              <ActionIcon variant="light" color="red">
+                <Trash size={16}></Trash>
+              </ActionIcon>
+            </Tooltip>
+            <Tooltip label="Edit Member Credentials" withArrow>
+              <ActionIcon variant="light" color="blue">
+                <Pencil size={16}></Pencil>
+              </ActionIcon>
+            </Tooltip>
+          </Group>
+          </div>
+
+        </Grid.Col></>
+      ))}
     </Grid>
   )
 }
