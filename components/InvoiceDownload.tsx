@@ -9,14 +9,12 @@ const InvoiceDownload = ({ activityData, invoicesData }) => {
 
   useEffect(() => {
     setClient(true)
-    console.log('in use effect')
-    console.log(invoicesData)
   }, [])
 
   return (
     <PDFDownloadLink
       document={
-        <InvoicePDF activityData={activityData} invoicesData={invoicesData}/>
+        <InvoicePDF activityData={activityData} invoicesData={invoicesData} />
       }
       fileName={`${invoicesData.title}.pdf`}
     >
