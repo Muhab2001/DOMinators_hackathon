@@ -190,7 +190,7 @@ function ClubsList() {
   return (
     <>
       <div className="w-full h-full mt-24 overflow-hidden">
-        <Grid className="pl-36 h-full w-full">
+        <Grid className="pl-40 pr-8 h-full w-full">
           <Grid.Col className="mb-3" span={10}>
             <SearchField />
           </Grid.Col>

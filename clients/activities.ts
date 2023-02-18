@@ -28,7 +28,7 @@ export class ActivityClient {
     return [
       {
         id: 1,
-        title: 'Club Activity 1',
+        title: 'Laravel framework workshop',
         date: '2020-01-01',
         description:
           'Excepteur velit tempor tempor consequat voluptate consequat voluptate est ex. Ipsum culpa ad commodo culpa laborum quis deserunt et duis sunt deserunt irure eiusmod. Culpa sit ea exercitation ad adipisicing nisi ea officia enim ipsum id fugiat consequat Lorem. Anim pariatur duis pariatur aliqua aute velit officia reprehenderit ea irure pariatur.',
@@ -36,7 +36,6 @@ export class ActivityClient {
         participantsLimit: 10,
         registeredParticipants: 5,
         attendanceCount: 5,
-        image: 'https://i.imgur.com/snAxpbr.jpg',
         image: 'https://i.imgur.com/snAxpbr.jpg',
         status: ActivityStatus.onGoing,
         category: 'Category 1',
@@ -95,7 +94,8 @@ export class ActivityClient {
     return [
       {
         id: 1,
-        title: 'Club Activity 1',
+        title:
+          '+ fugiat aliqua quis irure aliqua consectetur duis eu e duis.',
         date: '2023-18-02',
         description:
           'Excepteur velit tempor tempor consequat voluptate consequat voluptate est ex. Ipsum culpa ad commodo culpa laborum quis deserunt et duis sunt deserunt irure eiusmod. Culpa sit ea exercitation ad adipisicing nisi ea officia enim ipsum id fugiat consequat Lorem. Anim pariatur duis pariatur aliqua aute velit officia reprehenderit ea irure pariatur.',
