@@ -27,7 +27,7 @@ function ClubActivities() {
   return (
     <>
       {/* <AppNavbar /> */}
-      <Container size={1096} mb={22}>
+      <Container size={926} mb={22}>
         <ActivityHeader codename={slug as string} />
         <Caruousel />
         <SimpleGrid

@@ -8,12 +8,22 @@ import {
   Text,
   Stack,
   Spoiler,
+  ActionIcon,
+  Tooltip,
 } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import useSWR from 'swr'
 
-import { BrandFacebook, BrandInstagram, BrandTwitter } from 'tabler-icons-react'
+import {
+  Adjustments,
+  BrandFacebook,
+  BrandInstagram,
+  BrandTwitter,
+  Settings,
+  Users,
+} from 'tabler-icons-react'
 import ClubEditDrawer from './ClubEditDrawer'
+import Link from 'next/link'
 
 interface ActivityHeaderProps {
   codename: string
@@ -53,16 +63,43 @@ function ActivityHeader({ codename }: ActivityHeaderProps) {
           </Stack>
         ) : (
           <div className="relative top-[-48px]">
-            <Group align="flex-end" ml={16} spacing={16}>
+            <Group px={16} pr={22} align="flex-end" ml={16} spacing={16}>
               <Avatar
                 src={data?.logoImg}
                 className="border-solid border-white border-4"
                 radius={75}
                 size={150}
               />
-              <Text className="relative bottom-8" mt={5} size={35} weight={700}>
-                {data?.clubName}
-              </Text>
+              <Group
+                className="relative bottom-8"
+                style={{ flex: 1 }}
+                position="apart"
+              >
+                <Text mt={5} size={35} weight={700}>
+                  {data?.clubName}
+                </Text>
+                <Group spacing={8}>
+                  {/* TODO only show for presidents and admins */}
+                  {
+                    <Tooltip withArrow label="Manage club members">
+                      <ActionIcon size={35} variant="transparent">
+                        <Link href={'/members/' + codename}>
+                          <Users />
+                        </Link>
+                      </ActionIcon>
+                    </Tooltip>
+                  }
+                  <Tooltip withArrow label="Club Profile Settings">
+                    <ActionIcon
+                      onClick={handlers.open}
+                      size={35}
+                      variant="transparent"
+                    >
+                      <Adjustments />
+                    </ActionIcon>
+                  </Tooltip>
+                </Group>
+              </Group>
             </Group>
 
             <Spoiler
@@ -70,6 +107,7 @@ function ActivityHeader({ codename }: ActivityHeaderProps) {
               showLabel="Show more"
               hideLabel="Hide"
               maxHeight={80}
+              mt={12}
             >
               <Text color="grey" weight={400}>
                 {data?.description}
@@ -80,17 +118,17 @@ function ActivityHeader({ codename }: ActivityHeaderProps) {
 
         <Group px={73} pb={16} spacing={5}>
           {data?.socialMediaLinks['twitter'] && (
-            <a href={data.socialMediaLinks['twitter']}>
+            <a target="_blank" href={data.socialMediaLinks['twitter']}>
               <BrandTwitter color="#00bfd8" size={25} />
             </a>
           )}
           {data?.socialMediaLinks['facebook'] && (
-            <a href={data.socialMediaLinks['facebook']}>
+            <a target="_blank" href={data.socialMediaLinks['facebook']}>
               <BrandFacebook color="#00abfb" size={25} />
             </a>
           )}
           {data?.socialMediaLinks['instagram'] && (
-            <a href={data.socialMediaLinks['instagram']}>
+            <a target="_blank" href={data.socialMediaLinks['instagram']}>
               <BrandInstagram color="#fd0061" size={25} />
             </a>
           )}
