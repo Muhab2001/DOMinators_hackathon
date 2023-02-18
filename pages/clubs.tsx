@@ -128,7 +128,7 @@ function ClubsList() {
           </Grid.Col>
 
           <Grid.Col span={10}>
-            <Grid className="gap-y-7" justify="space-between">
+            <Grid className="gap-y-7" justify="flex-start">
               {clubs?.map((club) => (
                 <Grid.Col span={4}>
                   <ClubCard

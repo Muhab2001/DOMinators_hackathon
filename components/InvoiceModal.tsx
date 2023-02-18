@@ -11,8 +11,9 @@ import {
 } from '@mantine/core'
 import { useForm, zodResolver } from '@mantine/form'
 import useSWR from 'swr'
-import { FileInvoice, Link, Printer, Trash } from 'tabler-icons-react'
+import { FileInvoice, Link, LogicAnd, Printer, Trash } from 'tabler-icons-react'
 import { z } from 'zod'
+import useSWRMutation from 'swr/mutation'
 
 interface InvoiceModalProps {
   visible: boolean
@@ -42,24 +43,31 @@ function InvoiceModal({ visible, onClose, activity_id }: InvoiceModalProps) {
     ActivityClient.getInvoice
   )
 
+  const { trigger } = useSWRMutation(
+    { key: 'create_new_Invoice', activity_id: activity_id },
+    ActivityClient.saveInvoice
+  )
+
   const form = useForm({
     initialValues: {
-      invoices: [
-        {
-          id: 0,
-          date: new Date(),
-          amount: 0,
-          description: '',
-          seller: '',
-        },
-      ],
+      invoices: data
+        ? data.invoices
+        : [
+            {
+              id: 0,
+              date: new Date(),
+              amount: 0,
+              description: '',
+              seller: '',
+            },
+          ],
     },
     validate: zodResolver(schema),
   })
 
   const invoices = form.values.invoices.map((_, index) => {
     return (
-      <Stack mb={16}>
+      <Stack key={index} mb={16}>
         <Group>
           <Text weight={900} size={'xl'}>
             Invoice # {index + 1}
@@ -89,7 +97,7 @@ function InvoiceModal({ visible, onClose, activity_id }: InvoiceModalProps) {
         />
         <NumberInput
           label="Amount"
-          {...form.getInputProps('invoices.amount')[index]}
+          {...form.getInputProps(`invoices.${index}.amount`)}
         />
         <NumberInput
           label="Invoice number"
@@ -131,6 +139,7 @@ function InvoiceModal({ visible, onClose, activity_id }: InvoiceModalProps) {
         <Button
           onClick={() => {
             // triggering pdf report printing
+            console.log(form.values)
           }}
           leftIcon={<Printer />}
           style={{ flex: 1, width: '100%' }}
@@ -139,7 +148,7 @@ function InvoiceModal({ visible, onClose, activity_id }: InvoiceModalProps) {
         </Button>
         <Divider my={6} />
         <Group>
-          <Button>Save</Button>
+          <Button onClick={() => trigger(form.values.invoices)}>Save</Button>
           <Button color="gray" variant="outline">
             Cancel
           </Button>

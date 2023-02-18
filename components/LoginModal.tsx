@@ -15,6 +15,8 @@ import {
   Modal,
 } from '@mantine/core'
 import { z } from 'zod'
+import useSWRMutation from 'swr/mutation'
+import { UserClient } from '@/clients/users'
 
 const schema = z
   .object({
@@ -51,6 +53,10 @@ export function LoginModal({
     validate: zodResolver(schema),
   })
 
+  const { trigger: login } = useSWRMutation('login/', UserClient.login)
+
+  // const { trigger: register } = useSWRMutation('login/', UserClient.register)
+
   return (
     <Modal
       size={'md'}
@@ -63,7 +69,13 @@ export function LoginModal({
         </Text>
       }
     >
-      <form onSubmit={form.onSubmit(() => {})}>
+      <form onSubmit={form.onSubmit(async (values) => {
+        if (type === 'Login') {
+         await  login(values)
+        } else {
+          // register(values)
+        }
+      })}>
         <Stack>
           {type === 'Register' && (
             <TextInput
@@ -91,7 +103,7 @@ export function LoginModal({
             placeholder="Your password"
             value={form.values.password}
             onChange={(event) =>
-              form.setFieldValue('confirmPassword', event.currentTarget.value)
+              form.setFieldValue('password', event.currentTarget.value)
             }
             error={
               form.errors.password &&
@@ -105,7 +117,7 @@ export function LoginModal({
               placeholder="Confirm your password"
               value={form.values.confirmPassword}
               onChange={(event) =>
-                form.setFieldValue('password', event.currentTarget.value)
+                form.setFieldValue('confirmPassword', event.currentTarget.value)
               }
               error={
                 form.errors.password &&
