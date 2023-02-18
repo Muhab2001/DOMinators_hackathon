@@ -23,18 +23,16 @@ export class ClubClient {
     console.log("Data on club", data);
 
     return {
-      headerImg:
-        'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/afbefb6e-a4d3-447e-bf7a-10d0fe1b8087/db9bmis-7b3ec247-e33f-4bf2-bbf6-1b94ab0e7777.gif?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcL2FmYmVmYjZlLWE0ZDMtNDQ3ZS1iZjdhLTEwZDBmZTFiODA4N1wvZGI5Ym1pcy03YjNlYzI0Ny1lMzNmLTRiZjItYmJmNi0xYjk0YWIwZTc3NzcuZ2lmIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.thIKVm8noN3DBeGIleGfRJjFU45Gkdgsly5g056LVko',
-      logoImg: 'https://i.imgur.com/aOU4rub.jpg',
-      description:
-        'This is our club description mate epsum lorem This is our club description mate epsum loremThis is our club description mate epsum loremThis is our club description mate epsum loremThis is our club description mate epsum loremThis is our club description mate epsum loremThis is our club description mate epsum loremThis is our club description mate epsum loremThis is our club description mate epsum loremThis is our club description mate epsum loremThis is our club description mate epsum loremThis is our club description mate epsum loremThis is our club description mate epsum loremThis is our club description mate epsum loremThis is our club description mate epsum loremThis is our club description mate epsum loremThis is our club description mate epsum loremThis is our club description mate epsum loremThis is our club description mate epsum loremThis is our club description mate epsum lorem',
-      clubName: 'Computer Science Club',
-      membersCount: 100,
-      colorAccent: '#000000',
+      headerImg: data.header_image,
+      logoImg: data.logo,
+      description: data.description,
+      clubName: data.name,
+      membersCount: data.member_count,
+      colorAccent: data.theme,
       socialMediaLinks: {
-        twitter: 'https://twitter.com/',
-        facebook: 'https://facebook.com/',
-        instagram: 'https://instagram.com/',
+        twitter: data.twitter_link,
+        facebook: data.facebook_link,
+        instagram: data.instagram_link,
       },
     }
   }
