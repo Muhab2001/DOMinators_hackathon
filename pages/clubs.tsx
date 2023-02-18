@@ -1,39 +1,118 @@
+import { Calendar, Check, Clock, RotateClockwise2, X } from 'tabler-icons-react'
 import ClubCard from '../components/ClubCard'
 import SearchField from '../components/SearchField'
-import { Timeline, Grid } from '@mantine/core'
+import {
+  Timeline,
+  Grid,
+  Tooltip,
+  Text,
+  Group,
+  Avatar,
+  Stack,
+  ThemeIcon,
+} from '@mantine/core'
+import { ActivityStatus } from '@/components/ActivityCard'
+import useSWR from 'swr'
+import { ActivityClient, IActivity } from '@/clients/activities'
+import { stat } from 'fs'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 function MyTimeline() {
+  const { data, isLoading, error } = useSWR(
+    { key: 'recent-activities' },
+    ActivityClient.getRecentActivites
+  )
+
+  const router = useRouter()
+
+  const statusIcon = (status: ActivityStatus) => {
+    switch (status) {
+      case ActivityStatus.onGoing:
+        return (
+          <ThemeIcon variant="light" radius={'xl'} color="blue">
+            <RotateClockwise2 size={16} />
+          </ThemeIcon>
+        )
+      case ActivityStatus.finished:
+        return (
+          <ThemeIcon variant="light" radius={'xl'} color="green">
+            <Check size={16} />
+          </ThemeIcon>
+        )
+      case ActivityStatus.cancelled:
+        return (
+          <ThemeIcon variant="light" radius={'xl'} color="red">
+            <X size={16} />
+          </ThemeIcon>
+        )
+      case ActivityStatus.notStarted:
+        return (
+          <ThemeIcon variant="light" radius={'xl'} className="bg-gray-200">
+            <Clock className="text-gray-500" size={16} />
+          </ThemeIcon>
+        )
+    }
+  }
+
+  const timelineItems = data?.map(
+    (activity: IActivity & { clubName: string; codename: string }) => {
+      return (
+        <Timeline.Item
+          style={{ cursor: 'pointer' }}
+          title={activity.clubName}
+          bullet={
+            <Tooltip label={activity.status}>
+              {statusIcon(activity.status)}
+            </Tooltip>
+          }
+          onClick={() => {
+            router.push('/club_activities/' + activity.codename)
+          }}
+        >
+          <Stack spacing={0}>
+            <Text color="blue.4" weight={900}>
+              {activity.title}
+            </Text>
+            <Group spacing={8}>
+              <ThemeIcon size={16} variant="light">
+                <Calendar />
+              </ThemeIcon>
+              <Text color="dimmed" weight={300}>
+                {activity.date}
+              </Text>
+            </Group>
+          </Stack>
+        </Timeline.Item>
+      )
+    }
+  )
+
   return (
     <>
-      <h2 className="pb-2 text-[#5c626c]">Latest Activities</h2>
-      <Timeline active={99} bulletSize={24} lineWidth={2}>
-        <Timeline.Item className="text-[#595f6b]" title="Computer Club">
-          Innovation Hackathon
-        </Timeline.Item>
-        <Timeline.Item className="text-[#595f6b]" title="Shawarma">
-          Golden Juice
-        </Timeline.Item>
-        <Timeline.Item className="text-[#595f6b]" title="Regular item">
-          Third item
-        </Timeline.Item>
-        <Timeline.Item className="text-[#595f6b]" title="Computer Club">
-          Innovation Hackathon
-        </Timeline.Item>
-        <Timeline.Item className="text-[#595f6b]" title="Shawarma">
-          Golden Juice
-        </Timeline.Item>
-        <Timeline.Item className="text-[#595f6b]" title="Regular item">
-          Third item
-        </Timeline.Item>
-        <Timeline.Item className="text-[#595f6b]" title="Computer Club">
-          Innovation Hackathon
-        </Timeline.Item>
-      </Timeline>
+      <Stack ml={12}>
+        <Text mb={15} size={25}>
+          Latest Activities
+        </Text>
+        <Timeline bulletSize={24} lineWidth={2}>
+          {timelineItems}
+        </Timeline>
+      </Stack>
     </>
   )
 }
+
+interface IClub {
+  name: string
+  codename: string
+  logo: string
+  memberCount: number
+  description: string
+  activitiesCount: number
+}
+
 function ClubsList() {
-  const clubs = [
+  const clubs: IClub[] = [
     {
       name: 'Computer Club',
       codename: 'CC',

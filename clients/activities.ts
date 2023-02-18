@@ -1,6 +1,6 @@
 import { ActivityStatus } from '@/components/ActivityCard'
 
-interface IActivity {
+export interface IActivity {
   id: number
   title: string
   date: string
@@ -15,6 +15,14 @@ interface IActivity {
   locationURL: string
 }
 
+interface Invoice {
+  amount: number
+  seller: string
+  description: string
+  date: string
+  id: number
+}
+
 export class ActivityClient {
   static async getClubActivities({ clubId, path }): Promise<IActivity[]> {
     return [
@@ -24,7 +32,7 @@ export class ActivityClient {
         date: '2020-01-01',
         description:
           'Excepteur velit tempor tempor consequat voluptate consequat voluptate est ex. Ipsum culpa ad commodo culpa laborum quis deserunt et duis sunt deserunt irure eiusmod. Culpa sit ea exercitation ad adipisicing nisi ea officia enim ipsum id fugiat consequat Lorem. Anim pariatur duis pariatur aliqua aute velit officia reprehenderit ea irure pariatur.',
-        location: 'Club Activity 1 Location',
+        location: 'building 54',
         participantsLimit: 10,
         registeredParticipants: 5,
         attendanceCount: 5,
@@ -38,12 +46,12 @@ export class ActivityClient {
         title: 'Club Activity 1',
         date: '2020-01-01',
         description: 'Club Activity 1 Description',
-        location: 'Club Activity 1 Location',
+        location: 'Building 68',
         participantsLimit: 10,
         registeredParticipants: 5,
         attendanceCount: 5,
         image: 'https://i.imgur.com/snAxpbr.jpg',
-        status: ActivityStatus.onGoing,
+        status: ActivityStatus.cancelled,
         category: 'Category 1',
         locationURL: 'https://www.google.com/maps',
       },
@@ -78,11 +86,114 @@ export class ActivityClient {
     return 'dgkmldfngfdxgudrhergferg'
   }
 
+  static async deleteActivity(activity_id: number): Promise<void> {}
+
+  static async getRecentActivites(): Promise<
+    (IActivity & { clubName: string; codename: string })[]
+  > {
+    return [
+      {
+        id: 1,
+        title: 'Club Activity 1',
+        date: '2023-18-02',
+        description:
+          'Excepteur velit tempor tempor consequat voluptate consequat voluptate est ex. Ipsum culpa ad commodo culpa laborum quis deserunt et duis sunt deserunt irure eiusmod. Culpa sit ea exercitation ad adipisicing nisi ea officia enim ipsum id fugiat consequat Lorem. Anim pariatur duis pariatur aliqua aute velit officia reprehenderit ea irure pariatur.',
+        location: 'Club Activity 1 Location',
+        participantsLimit: 10,
+        registeredParticipants: 5,
+        attendanceCount: 5,
+        image: 'https://i.imgur.com/snAxpbr.jpg',
+        status: ActivityStatus.onGoing,
+        category: 'Category 1',
+        locationURL: 'https://www.google.com/maps',
+        clubName: 'Computer Club',
+        codename: 'CC',
+      },
+      {
+        id: 2,
+        title: 'Physics club',
+        date: '2020-01-01',
+        description: 'Club Activity 1 Description',
+        location: 'Club Activity 1 Location',
+        participantsLimit: 10,
+        registeredParticipants: 5,
+        attendanceCount: 5,
+        image: 'https://i.imgur.com/snAxpbr.jpg',
+        status: ActivityStatus.finished,
+        category: 'Category 1',
+        locationURL: 'https://www.google.com/maps',
+        clubName: 'Physics Club',
+        codename: 'PY',
+      },
+      {
+        id: 3,
+        title: 'Club Activity 1',
+        date: '2020-01-01',
+        description: 'Club Activity 1 Description',
+        location: 'Club Activity 1 Location',
+        participantsLimit: 10,
+        registeredParticipants: 5,
+        attendanceCount: 5,
+        image: 'https://i.imgur.com/snAxpbr.jpg',
+        status: ActivityStatus.cancelled,
+        category: 'Category 1',
+        locationURL: 'https://www.google.com/maps',
+        clubName: 'Systems Engineering Clubs',
+        codename: 'SE',
+      },
+      {
+        id: 2,
+        title: 'Club Activity 1',
+        date: '2020-01-01',
+        description: 'Club Activity 1 Description',
+        location: 'Club Activity 1 Location',
+        participantsLimit: 10,
+        registeredParticipants: 5,
+        attendanceCount: 5,
+        image: 'https://i.imgur.com/snAxpbr.jpg',
+        status: ActivityStatus.notStarted,
+        category: 'Category 1',
+        locationURL: 'https://www.google.com/maps',
+        clubName: 'Club Name',
+        codename: 'CC',
+      },
+    ]
+  }
+
   static async checkActivityValidity(email: string, activity_id: number) {
     return { valid: true, activityName: 'Example Activity Name' }
   }
 
-  static async recordAttendance(activity_id: string, user_id: string){
+  static async recordAttendance(activity_id: string, user_id: string) {
     // we do some shit
+  }
+
+  static async saveInvoice(activity_id): Promise<Invoice[]> {
+    return [
+      {
+        amount: 100,
+        date: '2020-01-01',
+        description: 'Invoice 1',
+        seller: 'Seller 1',
+        id: 1,
+      },
+      {
+        amount: 100,
+        date: '2020-01-01',
+        description: 'Invoice 2',
+        seller: 'Seller 2',
+        id: 2,
+      },
+    ]
+  }
+
+  static async getInvoice(activity_id: number): Promise<Invoice> {
+    return {
+      amount: 100,
+      date: '2020-01-01',
+      description: 'Invoice 1',
+      seller: 'Seller 1',
+      id: 1,
+    }
   }
 }

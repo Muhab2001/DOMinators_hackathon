@@ -5,6 +5,10 @@ import {
   ColorSwatch,
   CurrentLocation,
   PlayerPlay,
+  Qrcode,
+  FileInvoice,
+  Trash,
+  X,
 } from 'tabler-icons-react'
 import {
   Card,
@@ -17,15 +21,19 @@ import {
   createStyles,
   Progress,
   Spoiler,
+  Stack,
+  Tooltip,
 } from '@mantine/core'
 import { UserRole, useProfile } from '@/stores/profile'
 import { useDisclosure } from '@mantine/hooks'
 import QRPopup from './QRPopup'
+import useSWR from 'swr'
+import { ActivityClient } from '@/clients/activities'
 
 export enum ActivityStatus {
   onGoing = 'On Going',
   finished = 'Finished',
-  canceled = 'Canceled',
+  cancelled = 'Cancleled',
   notStarted = 'Not Started',
 }
 
@@ -75,6 +83,7 @@ const useStyles = createStyles((theme) => ({
 
   progressTrack: {
     backgroundColor: theme.colors.blue[2],
+    marginTop: '4px !important',
   },
   iconCentring: {
     height: '100%',
@@ -103,6 +112,25 @@ export function ActivityCard({
   const { role } = useProfile((state) => ({
     role: state.role,
   }))
+  // SWR state management
+  const {
+    data: deleteResponse,
+    isLoading: isLoadingDelete,
+    error: deleteError,
+  } = useSWR({ key: 'deleteActivity', id: id }, ActivityClient.deleteActivity)
+
+  const statusColor = (status: ActivityStatus) => {
+    switch (status) {
+      case ActivityStatus.onGoing:
+        return 'blue'
+      case ActivityStatus.finished:
+        return 'green'
+      case ActivityStatus.cancelled:
+        return 'red'
+      case ActivityStatus.notStarted:
+        return 'gray'
+    }
+  }
 
   return (
     <>
@@ -112,7 +140,7 @@ export function ActivityCard({
         onClose={handlers.close}
         visible={opened}
       />
-      <Card withBorder radius="md" p="sm" className={classes.card}>
+      <Card withBorder radius="md" p={0} className={classes.card}>
         <Card.Section>
           <Image src={image} alt={title} height={180} />
         </Card.Section>
@@ -122,27 +150,43 @@ export function ActivityCard({
             <Text color="blue" size="xl" weight={700}>
               {title}
             </Text>
-            <Badge size="md">{status}</Badge>
+            <Badge color={statusColor(status)} size="md">
+              {status}
+            </Badge>
           </Group>
 
-        <Spoiler mih={80} hideLabel="Hide" showLabel="Show more" maxHeight={40}>
-          <Text size="sm">{description}</Text>
-        </Spoiler>
-      </Card.Section>
+          <Spoiler
+            mih={80}
+            hideLabel="Hide"
+            showLabel="Show more"
+            maxHeight={40}
+          >
+            <Text size="sm">{description}</Text>
+          </Spoiler>
+        </Card.Section>
 
         <Card.Section className={classes.section}>
           <Group spacing={7} my={4} align="center">
             <Badge
-              size="lg"
+              size="xl"
+              style={{
+                fontWeight: 500,
+                fontSize: '12',
+                textDecoration: 'underline',
+                textTransform: 'capitalize',
+              }}
               py={8}
-              color={'teal'}
               leftSection={<CurrentLocation size={14}></CurrentLocation>}
             >
               <a href={locationURL}>{location}</a>
             </Badge>
             <Badge
-              size="lg"
-              color={theme.colorScheme === 'dark' ? 'dark' : 'blue'}
+              size="xl"
+              style={{
+                fontWeight: 500,
+                fontSize: '10',
+                textTransform: 'capitalize',
+              }}
               leftSection={<CalendarEvent size={14}></CalendarEvent>}
               classNames={{
                 leftSection: classes.iconCentring,
@@ -151,8 +195,13 @@ export function ActivityCard({
               {date}
             </Badge>
             <Badge
-              size="lg"
-              color={theme.colorScheme === 'dark' ? 'dark' : 'orange'}
+              variant="light"
+              size="xl"
+              style={{
+                fontWeight: 500,
+                fontSize: '10',
+                textTransform: 'capitalize',
+              }}
               leftSection={<ColorSwatch size={14}></ColorSwatch>}
             >
               {category}
@@ -163,8 +212,8 @@ export function ActivityCard({
           <Text className={classes.label} color="dimmed">
             Registration
           </Text>
-          <Group position="apart">
-            <Text className="font-medium text-2xl">
+          <Group mb={0} spacing={0} position="apart">
+            <Text className="font-medium text-lg">
               {registeredParticipants} / {participantsLimit}
             </Text>
             <Text>
@@ -185,23 +234,47 @@ export function ActivityCard({
             }}
           />
         </Card.Section>
-
-        <Group mt="xs">
-          {role === UserRole.GUEST ? (
-            <Button
-              onClick={handlers.open}
-              leftIcon={<PlayerPlay size={16} />}
-              color="green"
-              style={{ flex: 1 }}
-            >
-              Start Attendance
-            </Button>
-          ) : (
-            <Button color="blue" radius="md" style={{ flex: 1 }}>
-              Enroll
-            </Button>
-          )}
-        </Group>
+        <Card.Section className={classes.section}>
+          <Group mt="xs">
+            {role === UserRole.GUEST ? (
+              <Stack style={{ width: '100%' }} spacing={8}>
+                <Button
+                  onClick={handlers.open}
+                  leftIcon={<Qrcode size={16} />}
+                  color="green.6"
+                  style={{ flex: 1 }}
+                  py={8}
+                >
+                  Start Attendance
+                </Button>
+                <Group spacing={4}>
+                  <Button
+                    style={{ flex: 0.5 }}
+                    py={8}
+                    variant="filled"
+                    color="red"
+                    leftIcon={<X />}
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    onClick={handlers.open}
+                    leftIcon={<FileInvoice size={16} />}
+                    color="blue.6"
+                    style={{ flex: 1 }}
+                    py={8}
+                  >
+                    Create Invoice
+                  </Button>
+                </Group>
+              </Stack>
+            ) : (
+              <Button color="blue" radius="md" style={{ flex: 1 }}>
+                Enroll
+              </Button>
+            )}
+          </Group>
+        </Card.Section>
       </Card>
     </>
   )
