@@ -1,5 +1,4 @@
-import axios from 'axios';
-
+import axios from 'axios'
 
 interface ClubProfile {
   headerImg: string
@@ -13,14 +12,11 @@ interface ClubProfile {
 
 export class ClubClient {
   static async getClubProfile({ clubId }): Promise<ClubProfile> {
-
-    const data = (await axios.get(
-      `http://localhost:8000/api/clubs/${clubId}/?format=json`,
-    )
+    const data = (
+      await axios.get(`http://localhost:8000/api/clubs/${clubId}/?format=json`)
     ).data
 
-
-    console.log("Data on club", data);
+    console.log('Data on club', data)
 
     return {
       headerImg: data.header_image,
@@ -38,18 +34,16 @@ export class ClubClient {
   }
 
   static async getAllClubs(key: string) {
+    const data = (await axios.get('http://localhost:8000/api/clubs/')).data
 
-    const data = (await axios.get('http://localhost:8000/api/clubs/')).data;
-
-    const cleaned = data.map(obj => ({
+    const cleaned = data.map((obj) => ({
       name: obj.name,
       codename: obj.id,
       logo: obj.logo,
       memberCount: obj.member_count,
       description: obj.description,
       activitiesCount: obj.activity_count,
-
-    }));
+    }))
 
     return cleaned
   }

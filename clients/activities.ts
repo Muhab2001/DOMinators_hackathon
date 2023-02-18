@@ -24,7 +24,10 @@ interface Invoice {
 }
 
 export class ActivityClient {
-  static async getClubActivities({ clubId, path }): Promise<IActivity[]> {
+  static async getClubActivities({
+    clubId,
+    path,
+  }): Promise<(IActivity & { clubname: string; supervisor: string })[]> {
     return [
       {
         id: 1,
@@ -40,6 +43,8 @@ export class ActivityClient {
         status: ActivityStatus.onGoing,
         category: 'Category 1',
         locationURL: 'https://www.google.com/maps',
+        clubname: 'a club name',
+        supervisor: 'string',
       },
       {
         id: 2,
@@ -54,6 +59,8 @@ export class ActivityClient {
         status: ActivityStatus.cancelled,
         category: 'Category 1',
         locationURL: 'https://www.google.com/maps',
+        clubname: 'a club name 2',
+        supervisor: 'string 2',
       },
     ]
   }
@@ -168,32 +175,30 @@ export class ActivityClient {
     // we do some shit
   }
 
-  static async saveInvoice(activity_id): Promise<Invoice[]> {
-    return [
-      {
-        amount: 100,
-        date: '2020-01-01',
-        description: 'Invoice 1',
-        seller: 'Seller 1',
-        id: 1,
-      },
-      {
-        amount: 100,
-        date: '2020-01-01',
-        description: 'Invoice 2',
-        seller: 'Seller 2',
-        id: 2,
-      },
-    ]
-  }
+  static async saveInvoice(
+    { key, activity_id },
+    { args }: Readonly<Record<string, string>>
+  ): Promise<void> {}
 
-  static async getInvoice({ id: number, key: string }): Promise<Invoice> {
+  static async getInvoice({ id: number, key: string }): Promise<{
+    title: string
+    clubname: string
+    supervisor: string
+    invoices: Invoice[]
+  }> {
     return {
-      amount: 100,
-      date: '2020-01-01',
-      description: 'Invoice 1',
-      seller: 'Seller 1',
-      id: 1,
+      title: '',
+      supervisor: '',
+      clubname: '',
+      invoices: [
+        {
+          amount: 100,
+          date: '2020-01-01',
+          description: 'Invoice 1',
+          seller: 'Seller 1',
+          id: 1,
+        },
+      ],
     }
   }
 }

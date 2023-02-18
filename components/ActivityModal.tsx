@@ -10,6 +10,7 @@ import {
   Text,
   createStyles,
   Group,
+  Divider,
 } from '@mantine/core'
 
 import { Upload as IconUpload } from 'tabler-icons-react'
@@ -46,6 +47,7 @@ const useStyles = createStyles((theme) => ({
   },
   InputField: {
     marginBottom: 15,
+    width: '100%',
   },
 }))
 
@@ -171,15 +173,14 @@ function ActivityCreateModal({
             }
             error={form.errors.eventSupervisor}
           />
-          <Group position="center" m="md" className={classes.InputField}>
-            <FileInput
-              placeholder="Upload File"
-              icon={<IconUpload size={20} />}
-              label="Upload Activity Image"
-              accept="image/png,image/jpeg"
-              error={form.errors.imageFile}
-            />
-          </Group>
+          <FileInput
+            placeholder="Upload File"
+            style={{ flex: 1 }}
+            icon={<IconUpload size={20} />}
+            label={<Text mb={8}>Upload Activity Image</Text>}
+            accept="image/png,image/jpeg"
+            error={form.errors.imageFile}
+          />
           <Group position="right" mt="lg">
             <Button color="red" onClick={closeModal}>
               Cancel
