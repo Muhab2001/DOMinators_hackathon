@@ -9,6 +9,7 @@ import {
   Text,
   ThemeIcon,
   createStyles,
+  Spoiler,
 } from '@mantine/core'
 import Link from 'next/link'
 import { Activity, Users } from 'tabler-icons-react'
@@ -52,15 +53,19 @@ function ClubCard(props, { className, aosDelay }: ClubCardProps) {
                 {props.name}
               </Text>
             </Group>
-            <Text
-              mt={8}
-              ml={2}
-              size={'sm'}
-              mih={50}
-              mah={50}
-              className="truncate break-all whitespace-normal text-ellipsis overflow-hidden"
-            >
-              {props.description}
+            <Text className="break-all whitespace-normal text-ellipsis overflow-hidden">
+              <Spoiler
+                mt={8}
+                ml={2}
+                mih={50}
+                mah={50}
+                px={74}
+                showLabel="Show more"
+                hideLabel="Hide"
+                maxHeight={50}
+              >
+                {props.description}
+              </Spoiler>
             </Text>
           </Card.Section>
           {/* section for stats like # of recent activities, memeber count */}
@@ -71,8 +76,7 @@ function ClubCard(props, { className, aosDelay }: ClubCardProps) {
                   <Users size={16} />
                 </ActionIcon>
                 <Text size={'sm'}>
-                  <span className="font-semibold">{10}</span>{' '}
-                  Members
+                  <span className="font-semibold">{10}</span> Members
                 </Text>
               </Group>
               <Group spacing={0}>
@@ -80,8 +84,7 @@ function ClubCard(props, { className, aosDelay }: ClubCardProps) {
                   <Activity size={16} />
                 </ActionIcon>
                 <Text mx={0} size={'sm'}>
-                  <span className="font-semibold">{5}</span>{' '}
-                  Recent Activites
+                  <span className="font-semibold">{5}</span> Recent Activites
                 </Text>
               </Group>
             </Group>
