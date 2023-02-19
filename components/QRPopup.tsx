@@ -32,7 +32,7 @@ function QRPopup({ visible, onClose, activityId, activityName }: QRPopupProps) {
           <Text className="text-xl font-medium text-center mb-4">
             Scan this QR code to attend the event
           </Text>
-          <Text size={35} color="blue" weight={500}>
+          <Text className="text-center" size={35} color="blue" weight={500}>
             {activityName}
           </Text>
         </Stack>

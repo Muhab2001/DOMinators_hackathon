@@ -55,7 +55,14 @@ function AttendanceChecking() {
               Welcome <span className="font-bold">{user.name}</span>. Please
               click the button below to confirm your attendance
             </Text>
-            <Button py={8} size={'xl'} style={{ flex: 1 }}>
+            <Button
+              onClick={() => {
+                router.push('/')
+              }}
+              py={8}
+              size={'xl'}
+              style={{ flex: 1 }}
+            >
               <Text weight={400}>Confirm Attendance</Text>
             </Button>
           </Stack>

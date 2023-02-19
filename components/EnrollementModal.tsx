@@ -124,7 +124,7 @@ function EnrollementModal({
         </form>
         <Divider my={6} />
         <Group>
-          <Button>Submit</Button>
+          <Button onClick={onClose}>Submit</Button>
           <Button color="gray" variant="outline">
             Cancel
           </Button>

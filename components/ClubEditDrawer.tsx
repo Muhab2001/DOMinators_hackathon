@@ -176,7 +176,7 @@ function ClubEditDrawer({
             <Text mt={16} mb={5} weight={500}>
               Accent Theme Color
             </Text>
-            <ColorPicker size="lg" {...form.getInputProps('accentColor')} />
+            {/* <ColorPicker size="lg" {...form.getInputProps('accentColor')} /> */}
             <RichTextEditor editor={editor}>
               <RichTextEditor.Toolbar sticky>
                 <RichTextEditor.ControlsGroup>

@@ -7,74 +7,81 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { X } from 'tabler-icons-react'
 const members = [
-  {
-    id: 1,
-    name: 'Barack Obama',
-    email: 'john.doe@example.com',
-    avatar: 'https://example.com/avatar1.jpg',
-    role: UserRole.CLUB_PRESIDENT,
-  },
-  {
-    id: 2,
-    name: 'Jane Smith',
-    email: 'jane.smith@example.com',
-    avatar: 'https://example.com/avatar2.jpg',
-    role: UserRole.CLUB_MEMBER,
-  },
-  {
-    id: 3,
-    name: 'Bob Johnson',
-    email: 'bob.johnson@example.com',
-    avatar: 'https://example.com/avatar3.jpg',
-    role: UserRole.CLUB_MEMBER,
-  },
+  // {
+  //   id: 1,
+  //   name: 'Barack Obama',
+  //   email: 'john.doe@example.com',
+  //   avatar: 'https://example.com/avatar1.jpg',
+  //   role: UserRole.CLUB_PRESIDENT,
+  // },
+  // {
+  //   id: 2,
+  //   name: 'Jane Smith',
+  //   email: 'jane.smith@example.com',
+  //   avatar: 'https://example.com/avatar2.jpg',
+  //   role: UserRole.CLUB_MEMBER,
+  // },
+  // {
+  //   id: 3,
+  //   name: 'Bob Johnson',
+  //   email: 'bob.johnson@example.com',
+  //   avatar: 'https://example.com/avatar3.jpg',
+  //   role: UserRole.CLUB_MEMBER,
+  // },
   {
     id: 4,
     name: 'Samantha Lee',
     email: 'samantha.lee@example.com',
-    avatar: 'https://example.com/avatar4.jpg',
+    avatar: '/assets/1674886428324.jpg',
     role: UserRole.CLUB_MEMBER,
   },
   {
     id: 5,
     name: 'Michael Chen',
     email: 'michael.chen@example.com',
-    avatar: 'https://example.com/avatar5.jpg',
+    avatar: '/assets/1588336168503.jpg',
     role: UserRole.CLUB_MEMBER,
   },
   {
     id: 6,
     name: 'Emily Kim',
     email: 'emily.kim@example.com',
-    avatar: 'https://example.com/avatar6.jpg',
+    avatar: '/assets/1647515326182.jpg',
     role: UserRole.CLUB_MEMBER,
   },
-  {
-    id: 7,
-    name: 'David Wong',
-    email: 'david.wong@example.com',
-    avatar: 'https://example.com/avatar7.jpg',
-    role: UserRole.CLUB_MEMBER,
-  },
+  // {
+  //   id: 7,
+  //   name: 'David Wong',
+  //   email: 'david.wong@example.com',
+  //   avatar: 'https://example.com/avatar7.jpg',
+  //   role: UserRole.CLUB_MEMBER,
+  // },
   {
     id: 8,
     name: 'Stephanie Park',
     email: 'stephanie.park@example.com',
-    avatar: 'https://example.com/avatar8.jpg',
+    avatar: '/assets/1588336168503.jpg',
     role: UserRole.CLUB_MEMBER,
   },
   {
-    id: 9,
+    id: 90,
     name: 'Alex Rodriguez',
     email: 'alex.rodriguez@example.com',
-    avatar: 'https://example.com/avatar9.jpg',
+    avatar: '/assets/1647515326182.jpg',
     role: UserRole.CLUB_MEMBER,
   },
   {
-    id: 10,
-    name: 'Maria Garcia',
-    email: 'maria.garcia@example.com',
-    avatar: 'https://example.com/avatar10.jpg',
+    id: 82,
+    name: 'Stephanie Park',
+    email: 'stephanie.park@example.com',
+    avatar: '/assets/1588336168503.jpg',
+    role: UserRole.CLUB_MEMBER,
+  },
+  {
+    id: 19,
+    name: 'Alex Rodriguez',
+    email: 'alex.rodriguez@example.com',
+    avatar: '/assets/1647515326182.jpg',
     role: UserRole.CLUB_MEMBER,
   },
 ]
@@ -93,12 +100,6 @@ function MembersPage() {
       />
       <div className="flex pt-20 justify-between">
         <h2 className="p-5 text-[#5c626c] items-start">Club Members</h2>
-        <button
-          type="button"
-          className="py-2.5 px-5 mr-2 mb-2 mt-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-        >
-          Add Memeber
-        </button>
       </div>
       <div className="w-full justify-center flex">
         <div className="grid gap-5 grid-cols-3 max-w-[1220px] grid-rows-4 items-center	">
@@ -115,10 +116,8 @@ function MembersPage() {
               <Image
                 style={{ borderRadius: '70%' }}
                 className="mb-6"
-                loader={() =>
-                  'https://rlv.zcache.com/barack_obama_us_president_white_house_portrait_rec_square_sticker-r1404a5d4f9a6453686aef974567eb824_0ugmc_8byvr_736.webp'
-                }
-                src="https://rlv.zcache.com/barack_obama_us_president_white_house_portrait_rec_square_sticker-r1404a5d4f9a6453686aef974567eb824_0ugmc_8byvr_736.webp"
+                loader={() => member.avatar}
+                src={member.avatar}
                 alt="Club Memeber"
                 width={100}
                 height={100}
@@ -140,7 +139,7 @@ function MembersPage() {
       </div>
       <div className="fixed bottom-5 w-full flex justify-center">
         <Button style={{ width: '200px' }} onClick={handlers.open}>
-          Enroll in Club
+          Add member
         </Button>
       </div>
     </>

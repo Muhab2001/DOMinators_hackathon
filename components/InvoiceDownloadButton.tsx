@@ -15,7 +15,7 @@ const InvoiceDownloadButton = ({ activityData, invoicesData }) => {
     // console.log(invoicesData)
   }, [])
 
-  return <InvoiceDownload invoicesData={invoicesData} activityData={activityData} />
+  return <InvoiceDownload  invoicesData={invoicesData} activityData={activityData} />
 }
 
 export default InvoiceDownloadButton

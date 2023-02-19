@@ -61,7 +61,7 @@ function ActivityHeader({ codename }: ActivityHeaderProps) {
   return (
     <>
       <ClubEditDrawer
-        description={data ? data.description : ''}
+        description={clubProfile.description}
         accentColor={data ? data.colorAccent : ''}
         visible={opened}
         onClose={handlers.close}

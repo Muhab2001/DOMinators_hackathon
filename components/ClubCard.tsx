@@ -12,6 +12,7 @@ import {
 } from '@mantine/core'
 import Link from 'next/link'
 import { Activity, Users } from 'tabler-icons-react'
+import parse from 'html-react-parser'
 
 const useStyles = createStyles((theme) => ({
   card: {
@@ -70,7 +71,7 @@ function ClubCard(props, { className, aosDelay }: ClubCardProps) {
                   <Users size={16} />
                 </ActionIcon>
                 <Text size={'sm'}>
-                  <span className="font-semibold">{props.memberCount}</span>{' '}
+                  <span className="font-semibold">{10}</span>{' '}
                   Members
                 </Text>
               </Group>
@@ -79,7 +80,7 @@ function ClubCard(props, { className, aosDelay }: ClubCardProps) {
                   <Activity size={16} />
                 </ActionIcon>
                 <Text mx={0} size={'sm'}>
-                  <span className="font-semibold">{props.activitiesCount}</span>{' '}
+                  <span className="font-semibold">{5}</span>{' '}
                   Recent Activites
                 </Text>
               </Group>
